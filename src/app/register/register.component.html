@@ -1,0 +1,108 @@
+<div id="signupbox" style="margin-top:10px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+  <div class="show-hide-messages">
+      <div [ngClass]="messageClass">
+        {{ message }}
+      </div>
+  </div>
+   <div class="panel panel-info">
+      <div class="panel-heading">
+         <div class="panel-title">Sign Up</div>
+         <div style="float:right; font-size: 85%; position: relative; top:-10px">
+           <a routerLink="/login">Sign In</a>
+         </div>
+      </div>
+      <div class="panel-body">
+         <form  class="form-horizontal" role="form" [formGroup] = "regForm" (submit) = "onRegSubmit()">
+            <div id="signupalert" style="display:none" class="alert alert-danger">
+               <p>Error:</p>
+               <span></span>
+            </div>
+            <div class="form-group">
+               <label for="firstname" class="col-md-3 control-label">First Name</label>
+               <div class="col-md-9" [ngClass] ="{'has-error': (regForm.controls.firstname.errors && regForm.controls.firstname.dirty),
+             'has-success': !regForm.controls.firstname.errors}">
+                  <input type="text" class="form-control" formControlName="firstname" name="firstname" placeholder="First Name">
+                  <ul  *ngIf="regForm.controls.firstname.invalid && (regForm.controls.firstname.dirty || regForm.controls.firstname.touched)">
+                    <li class="error-message"  *ngIf="regForm.controls.firstname.errors.required">First Name is required.</li>
+                    <li class="error-message"  *ngIf="regForm.controls.firstname.errors.minlength">First Name must be at least 3 characters long.</li>
+                    <li class="error-message"  *ngIf="regForm.controls.firstname.errors.maxlength">First Name can not be more than 30 characters long.</li>
+                    <li class="error-message"  *ngIf="regForm.controls.firstname.errors.pattern">First Name is not valid.</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="lastname" class="col-md-3 control-label">Last Name</label>
+               <div class="col-md-9" [ngClass] ="{'has-error': (regForm.controls.lastname.errors && regForm.controls.lastname.dirty),
+             'has-success': !regForm.controls.lastname.errors}">
+                  <input type="text" class="form-control" formControlName="lastname" name="lastname" placeholder="Last Name">
+                  <ul  *ngIf="regForm.controls.lastname.invalid && (regForm.controls.lastname.dirty || regForm.controls.lastname.touched)">
+                    <li class="error-message"  *ngIf="regForm.controls.lastname.errors.required">Last Name is required.</li>
+                    <li class="error-message"  *ngIf="regForm.controls.lastname.errors.pattern">Last Name is not valid.</li>
+                    <li class="error-message"  *ngIf="regForm.controls.lastname.errors.minlength">Last Name must be at least 3 characters long.</li>
+                    <li class="error-message"  *ngIf="regForm.controls.lastname.errors.maxlength">Last Name can not be more than 30 characters long.</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="username" class="col-md-3 control-label">User Name</label>
+               <div class="col-md-9" [ngClass] ="{'has-error': ( regForm.controls.username.errors && regForm.controls.username.dirty),
+             'has-success': !regForm.controls.username.errors  && !regForm.controls.username.pending}">
+                  <input type="text" class="form-control" [ngClass]="{loading: (regForm.controls.username.pending) }" formControlName="username" name="username"  placeholder="User Name">
+                  <div  *ngIf="regForm.controls.username.invalid && (regForm.controls.username.dirty || regForm.controls.username.touched)">
+                    <label class="error-message"  *ngIf="regForm.controls.username.errors.required">User Name is required.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.username.errors.pattern">User Name is not valid.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.username.errors.minlength">User Name must be at least 3 characters long.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.username.errors.maxlength">User Name can not be more than 30 characters long.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.username.errors.checkUserName">User Name is already taken.</label>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="email" class="col-md-3 control-label">Email</label>
+               <div class="col-md-9" [ngClass] ="{'has-error': (regForm.controls.email.errors && regForm.controls.email.dirty),
+             'has-success': !regForm.controls.email.errors && !regForm.controls.email.pending}">
+                  <input type="text" class="form-control" [ngClass]="{loading: (regForm.controls.email.pending) }" formControlName="email" name="email" placeholder="Email Address">
+                  <div  *ngIf="regForm.controls.email.invalid && (regForm.controls.email.dirty || regForm.controls.email.touched)">
+                    <label class="error-message"  *ngIf="regForm.controls.email.errors.required">Email is required.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.email.errors.pattern">Email is not valid.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.email.errors.minlength">Email must be at least 8 characters long.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.email.errors.maxlength">Email can not be more than 30 characters long.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.email.errors.checkEmail">Email is already taken.</label>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="password" class="col-md-3 control-label">Password</label>
+               <div class="col-md-9" [ngClass] ="{'has-error': (regForm.controls.password.errors && regForm.controls.password.dirty),
+             'has-success': !regForm.controls.password.errors}">
+                  <input type="password" class="form-control" formControlName="password" name="password" placeholder="Password">
+                  <div  *ngIf="regForm.controls.password.invalid && (regForm.controls.password.dirty || regForm.controls.password.touched)">
+                    <label class="error-message"  *ngIf="regForm.controls.password.errors.required">Password is required.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.password.errors.minlength">Password must be at least 8 characters long.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.password.errors.maxlength">Password can not be more than 30 characters long.</label>
+                    <label class="error-message"  *ngIf="regForm.controls.password.errors?.strongPassword && regForm.controls.password.dirty  ">Password must contain a upper, lower, number and <br />special characters.</label>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="c_password" class="col-md-3 control-label">Confirm Password</label>
+               <div class="col-md-9" [ngClass] ="{'has-error': (regForm.controls.retype_password.errors && regForm.controls.retype_password.dirty),
+             'has-success': !regForm.controls.retype_password.errors}">
+                  <input type="password" class="form-control" formControlName="retype_password" name="retype_password" placeholder="Confirm Password">
+                  <div  *ngIf="regForm.controls.retype_password.invalid && (regForm.controls.retype_password.dirty || regForm.controls.retype_password.touched)">
+                    <label class="error-message"  *ngIf="regForm.controls.retype_password.errors.required">Confirm Password is required.</label>
+                     <label class="error-message" *ngIf="regForm.controls.retype_password.errors.matchOther && regForm.controls.retype_password.dirty">
+                       Passwords do not match</label>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <!-- Button -->
+               <div class="col-md-offset-3 col-md-9">
+                  <button id="btn-signup" type="submit" [disabled]="!regForm.valid || formProcessing" class="btn btn-info pull-right"><i class="icon-hand-right"></i>&nbsp; Sign Up &nbsp;</button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>

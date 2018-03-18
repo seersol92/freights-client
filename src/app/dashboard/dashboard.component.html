@@ -1,0 +1,102 @@
+<div class="row" *ngIf="isAdmin; else inquiry">
+    <div class="col-sm-12">
+        <div class="page-header">
+            <h3>Dashboard</h3>
+        </div>
+    </div>
+    <div class=" text-center">
+        <div class="col-sm-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading dashboard-panel">
+                    <h3 class="panel-title">SUPPLIER</h3>
+                </div>
+                <div class="panel-body">
+                    Supplier content
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-success btn-block">
+                        <i class="glyphicon glyphicon-plus-sign"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading dashboard-panel">
+                    <h3 class="panel-title">RECEIVER</h3>
+                </div>
+                <div class="panel-body">
+                    Receiver content
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-success btn-block">
+                        <i class="glyphicon glyphicon-plus-sign"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading dashboard-panel">
+                    <h3 class="panel-title">LOAD TERMINAL</h3>
+                </div>
+                <div class="panel-body">
+                    Load Terminal content
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-success btn-block">
+                        <i class="glyphicon glyphicon-plus-sign"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading dashboard-panel ">
+                    <h3 class="panel-title">DISCHARGE TERMINAL</h3>
+                </div>
+                <div class="panel-body">
+                    Discharge Terminal
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-success btn-block">
+                        <i class="glyphicon glyphicon-plus-sign"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading dashboard-panel">
+                    <h3 class="panel-title">CARGO GRADE</h3>
+                </div>
+                <div class="panel-body">
+                    Cargo Grade content
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-success btn-block">
+                        <i class="glyphicon glyphicon-plus-sign"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading dashboard-panel">
+                    <h3 class="panel-title">PORT</h3>
+                </div>
+                <div class="panel-body">
+                    Port content
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-success btn-block">
+                        <i class="glyphicon glyphicon-plus-sign"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #inquiry>
+    <app-inquiry ></app-inquiry>
+</ng-template>

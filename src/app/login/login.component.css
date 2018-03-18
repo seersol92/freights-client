@@ -1,0 +1,63 @@
+.jumbotron {
+background: #358CCE;
+color: #FFF;
+border-radius: 0px;
+}
+.jumbotron-sm {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.jumbotron small {
+color: #FFF;
+}
+.h2 small {
+font-size: 42% !important;
+}
+.has-error >.form-control, .has-error>.form-control:focus {
+    border-color: #ff4e00;
+}
+.form-group .error-message {
+    right: 0;
+    left: auto;
+}
+.form-group .error-message, .input-group .error-message {
+    background: #ff4e00;
+    position: absolute;
+    font-weight: normal;
+    font-size: .9em;
+    top: 60%;
+    right: 15px;
+    left: auto;
+    padding: .5em;
+    line-height: 1.2em;
+    text-align: right;
+    z-index: 10;
+    cursor: pointer;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    color: white;
+    margin: .25em 0 0 0;
+}
+.error-message:before{
+    position: absolute;
+    top: -1.2em;
+    right: 1em;
+    content: "";
+    border-top: .7em transparent solid;
+    border-right: .7em transparent solid;
+    border-left: .7em transparent solid;
+    border-bottom: .7em #ff4e00 solid;
+}
+/*not in use*/
+.has-success2 > input{
+  background-color: #ffffff;
+  background-image: url("../../assets/images/checked.png") !important;
+  background-size: 25px 25px;
+  background-position:right center;
+  background-repeat: no-repeat;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 0px !important;
+    border: 0px solid transparent !important;
+}

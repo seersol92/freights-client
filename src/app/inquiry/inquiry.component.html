@@ -1,0 +1,491 @@
+<ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">{{modalTitleTxt}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" [formGroup] = "cargoFrom" (submit) = "onSubmitForm()">
+              <div class="col-lg-6 col-xs-12">
+                <p><b>Loading Details</b></p>
+                <div class="col-lg-10 col-xs-12">
+                <div class="form-group">
+                    <select class="form-control" name="" id="" disabled="disabled">
+                      <option value="" selected hidden>Select Supplier</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="" id="" disabled="disabled">
+                      <option value="" selected hidden>Select Port</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="" id="" disabled="disabled">
+                      <option value="" selected hidden>Select Load Terminal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="" id="" disabled="disabled">
+                      <option value="" selected hidden>Select Cargo Grade</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="API">
+                  </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Volume">
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <div class="form-group">
+                        <select class="form-control pull-right " name="" id="" disabled="disabled">
+                            <option value="" selected hidden>Select Volume</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label  class=" control-label">Date</label>
+                      </div>
+                      <div class="col-md-5">
+                        <input type="date" class="form-control" placeholder="Load Window">
+                      </div>
+                      <div class="col-md-5">
+                        <input type="date" class="form-control" placeholder="Load Window">
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-fieldset">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                              <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
+                              <div class="form-group">
+                                  <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Window">
+                                  </div>
+                                  <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Days Before">
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Window">
+                                  </div>
+                                  <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Days Before">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="Comments">
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                      <div class="col-md-3">
+                        <label  class=" control-label text-left">Discharge Tolerance</label>
+                      </div>
+                      <div class="col-md-9">
+                        <select name="" id="" class="form-control">
+                          <option value="" hidden selected> Select Volume Tolerance</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                      <div class="col-md-3">
+                        <label  class=" control-label text-left">Volume Tolerance</label>
+                      </div>
+                      <div class="col-md-9">
+                        <select name="" id="" class="form-control">
+                          <option value="" hidden selected> Select Volume Tolerance</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group">
+                        <button type="button" 
+                          class="btn btn-primary btn-block">
+                          <span class="glyphicon glyphicon-plus-sign"></span> 
+                          ADD ANOTHER LOAD
+                        </button>
+                    </div>
+                    </div>
+                </div>
+              </div>
+              </div>
+              <div class="col-lg-6 col-xs-12">
+                <p><b> Discharge Details </b></p>
+                <div class="col-lg-10 col-xs-12">
+                    <div class="form-group">
+                        <select class="form-control" name="" id="" disabled="disabled">
+                            <option value="" selected hidden>Select Receiver</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="" id="" disabled="disabled">
+                          <option value="" selected hidden>Select Port</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="" id="" disabled="disabled">
+                          <option value="" selected hidden>Select Discharge Terminal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="" id="" disabled="disabled">
+                          <option value="" selected hidden>Select Cargo Grade</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="API">
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Volume">
+                            </div>
+                            <div class="col-md-5 col-md-offset-1">
+                                <select class="form-control pull-right " name="" id="" disabled="disabled">
+                                    <option value="" selected hidden>Select Volume</option>
+                                </select>
+                            </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="form-group">
+                        <div class="col-md-2">
+                          <label  class=" control-label">Date</label>
+                        </div>
+                        <div class="col-md-5">
+                          <input type="date" class="form-control" placeholder="Load Window">
+                        </div>
+                        <div class="col-md-5">
+                          <input type="date" class="form-control" placeholder="Load Window">
+                        </div>
+                      </div>
+                  </div>  
+                  <div class="row">
+                      <div class="custom-fieldset">
+                          <div class="panel panel-primary">
+                              <div class="panel-body">
+                                <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control" placeholder="Window">
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control" placeholder="Days Before">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control" placeholder="Window">
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="text" class="form-control" placeholder="Days Before">
+                                    </div>
+                                    <div class="col-md-12">
+                                      <input type="text" class="form-control" placeholder="Comments">
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="form-group">
+                        <div class="col-md-3">
+                          <label  class=" control-label text-left">Discharge Tolerance</label>
+                        </div>
+                        <div class="col-md-9">
+                          <select name="" id="" class="form-control">
+                            <option value="" hidden selected> Select Volume Tolerance</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="form-group">
+                        <div class="col-md-3">
+                          <label  class=" control-label text-left">Volume Tolerance</label>
+                        </div>
+                        <div class="col-md-9">
+                          <select name="" id="" class="form-control">
+                            <option value="" hidden selected> Select Volume Tolerance</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="form-group">
+                          <div class="col-md-10 col-md-offset-1">
+                          <button type="button" 
+                            class="btn btn-primary btn-block">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            ADD ANOTHER DISCHARGE
+                          </button>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                  <div class="seprator"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-xs-12">
+                    <div class="custom-fieldset">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                              <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Shipping Details</strong></h3>
+                              <div class="form-group">
+                                  <div class="col-md-4">
+                                    <label  class=" control-label text-left">Required Segergation</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <select name="" id="" class="form-control">
+                                      <option value="" hidden selected> Select Required Segergation</option>
+                                    </select>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-4">
+                                      <label  class=" control-label text-left">Required Segergation</label>
+                                    </div>
+                                  <div class="col-md-8">
+                                    <select name="" id="" class="form-control">
+                                      <option value="" hidden selected> Select Required Segergation</option>
+                                      <option value="yes">YES</option>
+                                      <option value="no">NO</option>
+                                    </select>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-4">
+                                    <label  class=" control-label text-left">Tank Preparation</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <select name="" id="" class="form-control">
+                                      <option value="" hidden selected> Select Tank Preparation</option>
+                                      <option value="yes">YES</option>
+                                      <option value="no">NO</option>
+                                    </select>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-4">
+                                    <label  class=" control-label text-left">Cargo Finance Required</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                    <select name="" id="" class="form-control">
+                                      <option value="" hidden selected> Cargo Finance Required</option>
+                                      <option value="yes">YES</option>
+                                      <option value="no">NO</option>
+                                    </select>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-4">
+                                    <label  class=" control-label text-left">Cargo Insurance Required</label>
+                                    </div>
+                                  <div class="col-md-8">
+                                    <select name="" id="" class="form-control">
+                                      <option value="" hidden selected> Cargo Insurance Required</option>
+                                      <option value="yes">YES</option>
+                                      <option value="no">NO</option>
+                                    </select>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-4">
+                                    <label  class=" control-label text-left"> Estimate Of Cargo Value</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <input type="text" name="" class="form-control" value="Provide Estimate Of Cargo Value">
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-4">
+                                    <label  class=" control-label text-left"> Volume Inspection Required</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <select name="" id="" class="form-control">
+                                      <option value="" hidden selected> Cargo Volume Inspection Required</option>
+                                      <option value="yes">YES</option>
+                                      <option value="no">NO</option>
+                                    </select>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-md-4">
+                                    <label  class=" control-label text-left"> Loss Control Required</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <select name="" id="" class="form-control">
+                                      <option value="" hidden selected> Loss Control Required</option>
+                                      <option value="yes">YES</option>
+                                      <option value="no">NO</option>
+                                    </select>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xs-12">
+                    <div class="custom-fieldset">
+                        <div class="panel panel-primary" style="min-height: 403px !important;">
+                            <div class="panel-body">
+                              <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Quote</strong></h3>
+                              <div class="form-group">
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left"> Required Named Vessel</label>
+                              </div>
+                              <div class="col-md-8">
+                                <select name="" id="" class="form-control">
+                                  <option value="" hidden selected> Required Named Vessel</option>
+                                  <option value="yes">YES</option>
+                                  <option value="no">NO</option>
+                                </select>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left"> Itinerary Required</label>
+                              </div>
+                              <div class="col-md-8">
+                                <select name="" id="" class="form-control">
+                                  <option value="" hidden selected> Itinerary Required</option>
+                                  <option value="yes">YES</option>
+                                  <option value="no">NO</option>
+                                </select>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left"> Pricing</label>
+                              </div>
+                              <div class="col-md-8">
+                                <select name="" id="" class="form-control">
+                                  <option value="" hidden selected> Pricing</option>
+                                </select>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left"> Units </label>
+                              </div>
+                              <div class="col-md-8">
+                                <select name="" id="" class="form-control">
+                                  <option value="" hidden selected> Select Units</option>
+                                </select>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                  <label  class=" control-label text-left"> Required Validity</label>
+                                </div>
+                                <div class="col-md-8">
+                                  <input type="date" class="form-control">
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>              
+            </form>        
+        </div>
+        <div class="modal-footer">
+            <div class="row"> 
+            <div class="col-md-10 col-md-offset-1">               
+            <div class="form-group pull-right">
+                  <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
+                  <button type="submit" [disabled]="!cargoFrom.valid || formProcessing" class="btn btn-primary">
+                    {{modalSaveBtnTxt}}</button>
+              </div>
+            </div>
+            </div>
+        </div>
+</ng-template>
+<div class="row page-header">
+    <div class="col-lg-8  col-xs-8">
+        <h3>INQUIRY HISTORY</h3>
+    </div>
+    <div class="col-lg-4  col-xs-4 header-btn">
+        <button  class="btn btn-success pull-right" (click)="createCargoModal(template)">New Inquiry</button>
+    </div>
+    <div class="show-hide-messages">
+        <div [ngClass]="messageClass">{{ message }}</div>
+    </div>
+</div>
+<div class="row">
+<div class="col-lg-2 col-lg-offset-5  col-xs-12 pull-right" style="display:none">
+    <div  *ngIf="cargoList?.length > 0">
+        <input type="text" [(ngModel)]="qoute" placeholder="Search Cargo Quote" 
+        class=" form-control">
+    </div>
+</div> 
+<div class="clearfix"></div>
+<div class="col-lg-12  col-xs-12">
+<div class="table-responsive">
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+        <th>#</th>
+        <th (click)="sort('supplier')">
+            <span class="glyphicon sort-icon" *ngIf="key =='supplier'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Supplier
+        </th>
+        <th (click)="sort('receiver')">
+            <span class="glyphicon sort-icon" *ngIf="key =='receiver'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Receiver
+        </th>
+        <th (click)="sort('port')">
+            <span class="glyphicon sort-icon" *ngIf="key =='port'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Port
+        </th>
+        <th (click)="sort('load_terminal')">
+            <span class="glyphicon sort-icon" *ngIf="key =='load_terminal'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Load Terminal
+        </th>
+        <th (click)="sort('port')">
+            <span class="glyphicon sort-icon" *ngIf="key =='port'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Port
+        </th>
+        <th (click)="sort('discharge_terminal')">
+            <span class="glyphicon sort-icon" *ngIf="key =='discharge_terminal'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Discharge Terminal
+        </th>
+        <th (click)="sort('cargo_grade')">
+            <span class="glyphicon sort-icon" *ngIf="key =='cargo_grade'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Cargo Grade
+        </th>
+        <th (click)="sort('volume')">
+            <span class="glyphicon sort-icon" *ngIf="key =='volume'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Volume
+        </th>
+        <th (click)="sort('price')">
+            <span class="glyphicon sort-icon" *ngIf="key =='price'" 
+            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            Price
+        </th>
+        <th>Date Added</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</div>
+</div>
+</div>
