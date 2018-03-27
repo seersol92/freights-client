@@ -85,7 +85,7 @@ export class RegisterComponent {
     const promise = new Promise<any>((resolve, reject) => {
       setTimeout(() => {
           this.auth.checkUserName(username).subscribe( data => {
-            if (data.success){
+            if (data.success) {
               resolve({'checkUserName': true});
             }
               resolve(null);
@@ -125,7 +125,7 @@ export class RegisterComponent {
         is_admin: true
       };
     this.auth.registerUser(user).subscribe(data => {
-      if (!data.success){
+      if (!data.success) {
           this.enableForm();
           this.formProcessing = false;
           this.messageClass = 'alert alert-danger';

@@ -19,6 +19,8 @@ import {ModalModule} from 'ngx-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
 import { InquiryComponent } from './inquiry/inquiry.component';
+import { TypeaheadModule } from 'ngx-bootstrap';
+
 
 const APP_ROUTES: Routes = [
   {
@@ -73,7 +75,8 @@ const APP_ROUTES: Routes = [
     FlashMessagesModule,
     ReactiveFormsModule,
     RouterModule.forRoot(APP_ROUTES),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   providers: [AuthService, AuthGuard, NotAuthGuard, LoggedInService],
   bootstrap: [AppComponent],

@@ -25,6 +25,7 @@
     "angular2-jwt": "^0.2.3",
     "bootstrap": "^4.0.0",
     "core-js": "^2.5.3",
+    "ng-auto-complete": "^2.7.14",
     "ng2-search-filter": "^0.4.7",
     "ngx-bootstrap": "^2.0.2",
     "ngx-order-pipe": "^2.0.1",

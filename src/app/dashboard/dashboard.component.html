@@ -3,6 +3,9 @@
         <div class="page-header">
             <h3>Dashboard</h3>
         </div>
+        <div class="show-hide-messages">
+            <div [ngClass]="messageClass">{{ message }}</div>
+        </div>
     </div>
     <div class=" text-center">
         <div class="col-sm-2">
@@ -10,11 +13,13 @@
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">SUPPLIER</h3>
                 </div>
-                <div class="panel-body">
-                    Supplier content
+                <div class="panel-body fixed-panel">
+                    <ol  >
+                        <li  *ngFor="let item of supplierList; index as i " >{{item.name}}</li>
+                    </ol>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-success btn-block">
+                    <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Supplier')" >
                         <i class="glyphicon glyphicon-plus-sign"></i> Add
                     </button>
                 </div>
@@ -25,11 +30,13 @@
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">RECEIVER</h3>
                 </div>
-                <div class="panel-body">
-                    Receiver content
+                <div class="panel-body fixed-panel">
+                    <ol  >
+                        <li  *ngFor="let item of receiverList; index as i " >{{item.name}}</li>
+                    </ol>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-success btn-block">
+                    <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Receiver')" >
                         <i class="glyphicon glyphicon-plus-sign"></i> Add
                     </button>
                 </div>
@@ -40,11 +47,13 @@
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">LOAD TERMINAL</h3>
                 </div>
-                <div class="panel-body">
-                    Load Terminal content
+                <div class="panel-body fixed-panel">
+                    <ol  >
+                        <li  *ngFor="let item of loadTerminalList; index as i ">{{item.name}}</li>
+                    </ol>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-success btn-block">
+                    <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Load Terminal')" >
                         <i class="glyphicon glyphicon-plus-sign"></i> Add
                     </button>
                 </div>
@@ -55,11 +64,13 @@
                 <div class="panel-heading dashboard-panel ">
                     <h3 class="panel-title">DISCHARGE TERMINAL</h3>
                 </div>
-                <div class="panel-body">
-                    Discharge Terminal
+                <div class="panel-body fixed-panel">
+                <ol  >
+                    <li  *ngFor="let item of disTerminalList; index as i ">{{item.name}}</li>
+                </ol>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-success btn-block">
+                    <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Discharge Terminal')" >
                         <i class="glyphicon glyphicon-plus-sign"></i> Add
                     </button>
                 </div>
@@ -70,11 +81,13 @@
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">CARGO GRADE</h3>
                 </div>
-                <div class="panel-body">
-                    Cargo Grade content
+                <div class="panel-body fixed-panel">
+                <ol  >
+                    <li  *ngFor="let item of cargoGradeList; index as i ">{{item.name}}</li>
+                </ol>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-success btn-block">
+                    <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Cargo Grade')" >
                         <i class="glyphicon glyphicon-plus-sign"></i> Add
                     </button>
                 </div>
@@ -85,11 +98,13 @@
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">PORT</h3>
                 </div>
-                <div class="panel-body">
-                    Port content
+                <div class="panel-body fixed-panel">
+                <ol  >
+                    <li  *ngFor="let item of portList; index as i ">{{item.name}}</li>
+                </ol>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-success btn-block">
+                    <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Port')" >
                         <i class="glyphicon glyphicon-plus-sign"></i> Add
                     </button>
                 </div>
@@ -100,3 +115,29 @@
 <ng-template #inquiry>
     <app-inquiry ></app-inquiry>
 </ng-template>
+<ng-template #newContent>
+<div class="modal-header">
+    <h4 class="modal-title pull-left">New {{newContentType}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal"  [formGroup]="addContentForm" (submit)="create()">
+        <fieldset>
+            <div class="form-group">
+            <label for="name" class="col-lg-2 control-label"> NAME</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" formControlName="name" id="name" placeholder=" NAME" > 
+            </div>
+            </div>
+            <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2 text-right">
+                <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
+                <button type="submit" [disabled]="!addContentForm.valid || formProcessing" class="btn btn-primary">Submit</button>
+            </div>
+            </div>
+        </fieldset>
+    </form>        
+</div>
+</ng-template>       

@@ -100,3 +100,17 @@ html {
 .modal-body, .seprator {
   border-bottom: 1px solid #265728 !important;
 }
+
+.fixed-panel {
+  min-height: 220px;
+  overflow-y:scroll;
+  overflow-x:hidden;
+}
+
+.fixed-panel > ol {
+  padding-left: 6px !important; 
+}
+
+.fixed-panel > li {
+  text-align: left !important; 
+}

@@ -1,0 +1,15 @@
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .modal-dialog{
+      width:600px !important;
+      margin:30px auto
+    }
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .modal-dialog{
+      width: 40% !important;
+      margin:30px auto
+    }
+  }
