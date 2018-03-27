@@ -24,6 +24,8 @@ export class InquiryComponent implements OnInit {
   public shipping: ShippingDetails;
   public quoteId: number;
   inquiryQuoteList = [];
+  viewList = [];
+  quoteDetailsKey: String = '';
   loadList = [];
   disChargeList = [];
   contentData = [];
@@ -153,8 +155,20 @@ export class InquiryComponent implements OnInit {
       this.message = '';
     }, 10000);
     });
-}
+  }
 
+  viewContent(index: number, key: string, template) {
+    this.viewList = null;
+    this.quoteId = this.inquiryQuoteList[index];
+    if (this.quoteId) {
+      this.quoteDetailsKey = key;
+       this.viewList = this.inquiryQuoteList[index][key];
+       this.modalRef = this.modalService.show(template);
+    } else {
+      // todo: no data found
+    }
+    console.log(this.viewList);
+  }
   onSubmitQuote() {
     if (this.loadList.length === 0) {
       this.loadList.push(this.load);
@@ -187,6 +201,33 @@ export class InquiryComponent implements OnInit {
     });
   }
 
+  removeDetailItems (index: number) {
+    const id = this.viewList[index]['_id'];
+    if (id) {
+      if (confirm('Are you sure to delete this  ' + this.quoteDetailsKey + ' detail?') ) {
+         this.auth.postRequest('/inquiry-quote/delete-detail', {
+           sub_doc_id : id,
+           quote_id: this.quoteId['_id'],
+           key: this.quoteDetailsKey
+          }).subscribe(res => {
+          this.modalRef.hide();
+           if (!res.success) {
+             this.formProcessing = false;
+             this.messageClass = 'alert alert-danger';
+             this.message = res.message;
+           } else {
+             this.viewList.splice(index, 1);
+             this.messageClass = 'alert alert-success';
+             this.message = res.message;
+           }
+         setTimeout(() => {
+           this.messageClass = '';
+           this.message = '';
+         }, 10000);
+         });
+      }
+    }
+  }
   removeQuote(index: number) {
     this.quoteId = this.inquiryQuoteList[index]['_id'];
      if (this.quoteId) {

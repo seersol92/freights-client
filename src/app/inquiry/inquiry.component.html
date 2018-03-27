@@ -1,3 +1,122 @@
+<ng-template #viewDetail>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> Inquiry Quote <span class="capitalize">{{quoteDetailsKey}}</span> Details</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div class="modal-body">
+    <div class="col-lg-12 col-xs-12" style="border-bottom: 1px solid #265728 !important; bottom: 13px;">
+      <div class="table-responsive">
+      <table class="table table-striped table-hover">
+          <thead>
+              <tr>
+              <th>#</th>
+              <th *ngIf="quoteDetailsKey == 'load'; else dischargeReceiver"  (click)="sort('supplier')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='supplier'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Supplier
+              </th>
+              <ng-template #dischargeReceiver>
+                  <th  (click)="sort('receiver')">
+                      <span class="glyphicon sort-icon" *ngIf="key =='receiver'" 
+                      [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                      Receiver
+                  </th>
+              </ng-template>
+              <th (click)="sort('port')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='port'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Cargo Finance
+              </th>
+              <th *ngIf="quoteDetailsKey == 'load'; else dischargeTerminal" (click)="sort('load_terminal')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='load_terminal'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Load Terminal
+              </th>
+              <ng-template #dischargeTerminal>
+                  <th  (click)="sort('discharge_terminal')">
+                      <span class="glyphicon sort-icon" *ngIf="key =='discharge_terminal'" 
+                      [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                      Discharge Terminal
+                  </th>
+              </ng-template>         
+              <th (click)="sort('port')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='port'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Port
+              </th>
+              <th (click)="sort('api')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='api'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Api
+              </th>
+              <th (click)="sort('volume')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='volume'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Volume
+              </th>
+              <th *ngIf="quoteDetailsKey == 'load'; else dischargeTolerance" (click)="sort('loading_tolerance')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='loading_tolerance'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Load Tolerance
+              </th>
+              <ng-template #dischargeTolerance>
+                  <th  (click)="sort('discharge_tolerance')">
+                      <span class="glyphicon sort-icon" *ngIf="key =='discharge_tolerance'" 
+                      [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                      Discharge Tolerance
+                  </th>
+              </ng-template> 
+              <th (click)="sort('volume_tolerance')">
+                  <span class="glyphicon sort-icon" *ngIf="key =='volume_tolerance'" 
+                  [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                  Volume Tolerance
+              </th>
+              <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of viewList; index as i " >
+              <td>{{i+1}}</td>
+              <td *ngIf="quoteDetailsKey == 'load'; else tdDischargeReceiver">{{item.supplier}}</td>
+              <ng-template #tdDischargeReceiver>
+                  <td>{{item.receiver}}</td>
+              </ng-template>
+              <td>{{item.port}}</td>
+              <td *ngIf="quoteDetailsKey == 'load'; else tdDischargeTerminal">{{item.load_terminal}}</td>
+              <ng-template #tdDischargeTerminal>
+                  <td>{{item.discharge_terminal}}</td>
+              </ng-template>
+              <td>{{item.cargo_grade}}</td>
+              <td>{{item.api}}</td>
+              <td>{{item.volume}}</td>
+              <td *ngIf="quoteDetailsKey == 'load'; else tdDischargeTolerance">{{item.loading_tolerance}}%</td>
+              <ng-template #tdDischargeTolerance>
+                  <td>{{item.discharge_tolerance}}%</td>
+              </ng-template>
+              <td>{{item.volume_tolerance}}</td>
+              <td>
+                <a href="javascript:void(0)" (click)="removeDetailItems(i)" class="danger">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>                            
+              </td>
+            </tr>
+          </tbody>
+      </table>
+      </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row"> 
+        <div class="col-lg-12 col-xs-12">               
+        <div class="form-group pull-right">
+              <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Close</button>
+          </div>
+        </div>
+        </div>
+    </div>
+</ng-template>
 <ng-template #template>
         <div class="modal-header">
           <h4 class="modal-title pull-left">{{modalTitleTxt}}</h4>
@@ -5,7 +124,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="border-bottom: 1px solid #265728 !important">
             <form class="form-horizontal"  #f="ngForm">
               <div class="col-lg-6 col-xs-12">
                 <p><b>Loading Details</b>
@@ -288,7 +407,7 @@
               </div>
               <div class="row">
                 <div class="col-lg-12 col-xs-12">
-                  <div class="seprator"></div>
+                  <div class="seprator" style="border-bottom: 1px solid #265728 !important;"></div>
                 </div>
               </div>
               <div class="row">
@@ -507,6 +626,8 @@
             Loss Control
         </th>
         <th>Date Added</th>
+        <th>View Load</th>
+        <th>View Discharge</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -521,7 +642,20 @@
         <td>{{item.volume_inspection}}</td>
         <td>{{item.loss_control}}</td>
         <td>{{ item.dateadded | date:'dd/MM/yyyy' }}</td>
-        <td><a href="javascript:void(0)" (click)="removeQuote(i, item._id)" class="danger"><span class="glyphicon glyphicon-trash"></span></a>                            
+        <td>
+          <a href="javascript:void(0)" (click)="viewContent(i, 'load', viewDetail)" >
+            <span class="glyphicon glyphicon-circle-arrow-up"></span> Load
+          </a>                            
+        </td>
+        <td>
+            <a href="javascript:void(0)" (click)="viewContent(i, 'discharge', viewDetail)">
+              <span class="glyphicon glyphicon-circle-arrow-down"></span> Discharge
+            </a>                                      
+        </td>
+        <td>
+          <a href="javascript:void(0)" (click)="removeQuote(i, item._id)" class="danger">
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>                            
         </td>
       </tr>
     </tbody>
