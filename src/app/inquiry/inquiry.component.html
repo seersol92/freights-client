@@ -1,3 +1,38 @@
+<ng-template #updateModal>
+  <div class="modal-header">
+      <h4 class="modal-title pull-left"> Update Price For This Inquiry Quote</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <form class="form-horizontal" (submit)='onUpdatePrice()' >
+  <div class="modal-body">
+    <div class="col-lg-12 col-xs-12" >
+        
+          <div class="col-md-2">
+            <label  class=" control-label">Price</label>
+          </div>
+          <div class="col-md-10">
+              <input type="text" class="form-control" placeholder="Update Price" name="price" [(ngModel)]="quote.pricing">
+          </div>
+       
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="modal-footer">
+      <div class="row"> 
+      <div class="col-md-10 col-md-offset-1">               
+      <div class="form-group pull-right">
+            <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              Update
+            </button>
+        </div>
+      </div>
+      </div>
+   
+  </div> </form>
+</ng-template>
 <ng-template #viewDetail>
     <div class="modal-header">
         <h4 class="modal-title pull-left"> Inquiry Quote <span class="capitalize">{{quoteDetailsKey}}</span> Details</h4>
@@ -625,6 +660,9 @@
             [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
             Loss Control
         </th>
+        <th>
+          Price
+        </th>
         <th>Date Added</th>
         <th>View Load</th>
         <th>View Discharge</th>
@@ -641,10 +679,17 @@
         <td>{{item.estimate_cargo_value}}</td>
         <td>{{item.volume_inspection}}</td>
         <td>{{item.loss_control}}</td>
+        <td *ngIf="!auth.isAdmin; else updatePrice ">{{item.pricing}} $</td>
+        <ng-template #updatePrice>
+          <td> 
+              {{item.pricing}}$ &nbsp;&nbsp; <a href="javascript:void(0)" (click)="updateQuotePrice(i, updateModal)"> 
+              <span class="glyphicon glyphicon-pencil"></span> Update</a>
+          </td>
+        </ng-template>
         <td>{{ item.dateadded | date:'dd/MM/yyyy' }}</td>
         <td>
           <a href="javascript:void(0)" (click)="viewContent(i, 'load', viewDetail)" >
-            <span class="glyphicon glyphicon-circle-arrow-up"></span> Load
+            <span class="glyphicon glyphicon-circle-arrow-up"></span> Load 
           </a>                            
         </td>
         <td>

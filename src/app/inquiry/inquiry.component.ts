@@ -55,10 +55,15 @@ export class InquiryComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService
   ) {
-    this.auth.getloggedInInfo();
-   }
+  }
 
-    ngOnInit() {
+   async ngOnInit() {
+   await this.auth.getProfile().subscribe(profile => {
+        if (profile.user) {
+         this.auth.loggedinName = profile.user.username ;
+         this.auth.isAdmin = profile.user.is_admin;
+        }
+       });
      this.fetchList();
      this.getQuote();
      this.load = new Load();
@@ -141,6 +146,37 @@ export class InquiryComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  updateQuotePrice (index: number, template) {
+    this.quoteId = this.inquiryQuoteList[index];
+    if (this.quoteId) {
+       this.quote.pricing = this.quoteId['pricing'];
+       this.modalRef = this.modalService.show(template);
+    }
+  }
+
+  onUpdatePrice () {
+  const data = {
+    'quote':      this.quoteId['_id'],
+    'new_price':  this.quote.pricing
+  };
+  this.formProcessing = true;
+  this.auth.postRequest('/inquiry-quote/update-price', data ).subscribe(res => {
+  this.modalRef.hide();
+  this.formProcessing = false;
+   if (!res.success) {
+    this.messageClass = 'alert alert-danger';
+    this.message = res.message;
+  } else {
+    this.getQuote();
+    this.messageClass = 'alert alert-success';
+    this.message = res.message;
+  }
+  setTimeout(() => {
+    this.messageClass = '';
+    this.message = '';
+  }, 10000);
+  });
+  }
   async getQuote() {
     await this.auth.getRequest('/inquiry-quote', null ).subscribe(res => {
     if (!res.success) {
@@ -166,8 +202,8 @@ export class InquiryComponent implements OnInit {
        this.modalRef = this.modalService.show(template);
     } else {
       // todo: no data found
+      alert('No, Data Found!!');
     }
-    console.log(this.viewList);
   }
   onSubmitQuote() {
     if (this.loadList.length === 0) {
