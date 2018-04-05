@@ -48,6 +48,7 @@ export class InquiryComponent implements OnInit {
   messageClass: String = null;
   message: String = null;
   formProcessing: Boolean = false;
+  summery: Boolean = true;
   selected: string;
   constructor(
     private fb: FormBuilder,
@@ -205,6 +206,17 @@ export class InquiryComponent implements OnInit {
       alert('No, Data Found!!');
     }
   }
+
+  showSummery(template) {
+    this.modalRef.hide();
+    if (this.loadList.length === 0) {
+      this.loadList.push(this.load);
+    }
+    if (this.disChargeList.length === 0) {
+      this.disChargeList.push(this.discharge);
+    }
+    this.modalRef = this.modalService.show(template);
+  }
   onSubmitQuote() {
     if (this.loadList.length === 0) {
       this.loadList.push(this.load);
@@ -216,7 +228,8 @@ export class InquiryComponent implements OnInit {
       'load':       this.loadList,
       'discharge':  this.disChargeList,
       'shipping':   this.shipping,
-      'quote':      this.quote
+      'quote':      this.quote,
+      'added_by':   this.auth.loggedinName
     };
     this.formProcessing = true;
     this.auth.postRequest('/inquiry-quote/create', data ).subscribe(res => {

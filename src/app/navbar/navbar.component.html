@@ -8,21 +8,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" routerLink="">Freights</a>
+          <a class="navbar-brand" routerLink="">FREIGHTS.IO</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li *ngIf="!auth.isLoggedin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-              <a  routerLink="/register">Register</a>
-            </li>
-            <li *ngIf="auth.isLoggedin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  routerLink="/dashboard">Dashboard</a></li>
+           <li *ngIf="auth.isLoggedin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  routerLink="/dashboard">Dashboard</a></li>
             <li *ngIf="auth.isLoggedin() && auth.isAdmin" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  routerLink="/inquiry-list">Inquiry List</a></li>
-          <li *ngIf="!auth.isLoggedin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  routerLink="/login">Login</a></li>
             <li *ngIf="auth.isLoggedin()" class="dropdown open">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{auth.loggedinName | uppercase}}<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li *ngIf="auth.isLoggedin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  routerLink="/profile">Profile</a></li>                  
-                    <li *ngIf="auth.isLoggedin()" ><a href="#" (click)="logMeOut()">Logout</a></li>
+                <ul class="dropdown-menu" role="menu">                   
+                  <li *ngIf="auth.isLoggedin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  routerLink="/user-management"> User Management </a></li>                  
+                  <li *ngIf="auth.isLoggedin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a  routerLink="/profile"> Profile</a></li>                  
+                  <li *ngIf="auth.isLoggedin()" ><a href="#" (click)="logMeOut()">Logout</a></li>
                 </ul>
               </li>
           </ul>

@@ -20,6 +20,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
 import { InquiryComponent } from './inquiry/inquiry.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
+import { UserComponent } from './user/user.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const APP_ROUTES: Routes = [
@@ -49,6 +52,11 @@ const APP_ROUTES: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'user-management',
+    component: UserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]
@@ -64,7 +72,8 @@ const APP_ROUTES: Routes = [
     RegisterComponent,
     DashboardComponent,
     ProfileComponent,
-    InquiryComponent
+    InquiryComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +83,9 @@ const APP_ROUTES: Routes = [
     Ng2SearchPipeModule,
     FlashMessagesModule,
     ReactiveFormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(APP_ROUTES),
     ModalModule.forRoot(),
     TypeaheadModule.forRoot()

@@ -1,3 +1,422 @@
+<ng-template #summery>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Inquiry Summery</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="border-bottom: 1px solid #265728 !important">
+        <form class="form-horizontal"  #f="ngForm">
+          <div class="col-lg-6 col-xs-12">
+            <p><b>Loading Details</b>
+            </p>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label">Supplier</label>
+              </div>
+              <div class="col-md-4">
+                {{load.supplier}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label">Port</label>
+              </div>
+              <div class="col-md-4">
+                {{load.port}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label">Load Terminal</label>
+              </div>
+              <div class="col-md-4">
+                {{load.load_terminal}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label">Cargo Grade</label>
+              </div>
+              <div class="col-md-4">
+                {{load.cargo_grade}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label"> Api</label>
+              </div>
+              <div class="col-md-4">
+                {{load.api}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label"> Volume</label>
+              </div>
+              <div class="col-md-4">
+                {{load.volume}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label"> Select Volume</label>
+              </div>
+              <div class="col-md-4">
+                {{load.volume}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label"> Date1</label>
+              </div>
+              <div class="col-md-4">
+                {{load.date1}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                  <label  class=" control-label"> Date2</label>
+              </div>
+              <div class="col-md-4">
+                {{load.date2}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-xs-12">
+                <div class="custom-fieldset">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                          <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
+                          <div class="form-group">
+                              <div class="col-md-3">
+                                  <label  class=" control-label"> Load Window</label>
+                              </div>
+                              <div class="col-md-3">
+                                {{load.window_1}}
+                              </div>
+                              <div class="col-md-3">
+                                  <label  class=" control-label"> Days Before 1</label>
+                              </div>
+                              <div class="col-md-3">
+                                {{load.days_before_1}}
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-3">
+                                  <label  class=" control-label"> Load Window</label>
+                              </div>
+                              <div class="col-md-3">
+                                {{load.window_2}}
+                              </div>
+                              <div class="col-md-3">
+                                  <label  class=" control-label"> Days Before 2</label>
+                              </div>
+                              <div class="col-md-3">
+                                {{load.days_before_2}}
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-3">
+                                  <label  class=" control-label"> Comments</label>
+                              </div>
+                              <div class="col-md-3">
+                                {{load.comments}}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    <label  class=" control-label text-left">Loading Tolerance</label>
+                  </div>
+                  <div class="col-md-9">
+                    {{load.loading_tolerance}}
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    <label  class=" control-label text-left">Volume Tolerance</label>
+                  </div>
+                  <div class="col-md-9">
+                    {{load.volume_tolerance}} %
+                  </div>
+                </div>
+            </div>
+
+          </div>
+          <div class="col-lg-6 col-xs-12">
+              <p><b>Discharge Details</b>
+              </p>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label">Receiver</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.receiver}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label">Port</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.port}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label">Discharge Terminal</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.discharge_terminal}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label">Cargo Grade</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.cargo_grade}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label"> Api</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.api}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label"> Volume</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.volume}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label"> Select Volume</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.volume}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label"> Date1</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.date1}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                    <label  class=" control-label"> Date2</label>
+                </div>
+                <div class="col-md-4">
+                  {{discharge.date2}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                  <div class="custom-fieldset">
+                      <div class="panel panel-primary">
+                          <div class="panel-body">
+                            <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label  class=" control-label"> Discharge Window</label>
+                                </div>
+                                <div class="col-md-3">
+                                  {{discharge.window_1}}
+                                </div>
+                                <div class="col-md-3">
+                                    <label  class=" control-label"> Days Before 1</label>
+                                </div>
+                                <div class="col-md-3">
+                                  {{discharge.days_before_1}}
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-3">
+                                    <label  class=" control-label"> Discharge Window </label>
+                                </div>
+                                <div class="col-md-3">
+                                  {{discharge.window_2}}
+                                </div>
+                                <div class="col-md-3">
+                                    <label  class=" control-label"> Days Before 2</label>
+                                </div>
+                                <div class="col-md-3">
+                                  {{discharge.days_before_2}}
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-2">
+                                    <label  class=" control-label"> Comments</label>
+                                </div>
+                                <div class="col-md-4">
+                                  {{discharge.comments}}
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group">
+                    <div class="col-md-3">
+                      <label  class=" control-label text-left">Discharge Tolerance</label>
+                    </div>
+                    <div class="col-md-9">
+                      {{discharge.discharge_tolerance}} %
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group">
+                    <div class="col-md-3">
+                      <label  class=" control-label text-left">Volume Tolerance</label>
+                    </div>
+                    <div class="col-md-9">
+                      {{discharge.volume_tolerance}}
+                    </div>
+                  </div>
+              </div>
+            </div>
+          <div class="row">
+            <div class="col-lg-12 col-xs-12">
+              <div class="seprator" style="border-bottom: 1px solid #265728 !important;"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <div class="custom-fieldset">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                          <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Shipping Details</strong></h3>
+                          <div class="form-group">
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left">Required Segregation</label>
+                              </div>
+                              <div class="col-md-8">
+                                {{shipping.segergation}}
+                              </div>
+                              <div class="clearfix"></div>                          
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left">Tank Preparation</label>
+                              </div>
+                              <div class="col-md-8">
+                                {{shipping.tank_preparation}}
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left">Cargo Finance Required</label>
+                                </div>
+                                <div class="col-md-8">
+                                  {{shipping.cargo_finance}}
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label class=" control-label text-left">Cargo Insurance Required</label>
+                                </div>
+                              <div class="col-md-8">
+                                {{shipping.cargo_insurance}}
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left"> Estimate Of Cargo Value</label>
+                              </div>
+                              <div class="col-md-8">
+                                {{shipping.estimate_cargo_value}}
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left"> Volume Inspection Required</label>
+                              </div>
+                              <div class="col-md-8">
+                                {{shipping.volume_inspection}}
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="col-md-4">
+                                <label  class=" control-label text-left"> Loss Control Required</label>
+                              </div>
+                              <div class="col-md-8">
+                                {{shipping.loss_control}}
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                <div class="custom-fieldset">
+                    <div class="panel panel-primary" style="min-height:255px !important">
+                        <div class="panel-body">
+                          <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Quote</strong></h3>
+                          <div class="form-group">
+                          <div class="col-md-4">
+                            <label  class=" control-label text-left"> Require Named Vessel</label>
+                          </div>
+                          <div class="col-md-8">
+                            {{quote.named_vessel}}
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-4">
+                            <label  class=" control-label text-left"> Itinerary Lock</label>
+                          </div>
+                          <div class="col-md-8">
+                            {{quote.itinerary_required}}
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-4">
+                            <label class=" control-label text-left"> Pricing</label>
+                          </div>
+                          <div class="col-md-8">
+                            {{quote.pricing}}
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-4">
+                            <label  class=" control-label text-left"> Units </label>
+                          </div>
+                          <div class="col-md-8">
+                            {{quote.units}}
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-4">
+                              <label  class=" control-label text-left"> Required Validity</label>
+                            </div>
+                            <div class="col-md-8">
+                              {{quote.required_validity}}
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>              
+        </form>        
+    </div>
+    <div class="modal-footer">
+        <div class="row"> 
+        <div class="col-md-10 col-md-offset-1">               
+        <div class="form-group pull-right">
+              <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
+              <button type="button" class="btn btn-primary" (click)='onSubmitQuote()'
+              >
+                {{modalSaveBtnTxt}}</button>
+          </div>
+        </div>
+        </div>
+    </div>
+</ng-template>
 <ng-template #updateModal>
   <div class="modal-header">
       <h4 class="modal-title pull-left"> Update Price For This Inquiry Quote</h4>
@@ -239,14 +658,14 @@
                               <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
                               <div class="form-group">
                                   <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Window" name="window_1" [(ngModel)]="load.window_1">
+                                    <input type="text" class="form-control" placeholder="Load Window" name="window_1" [(ngModel)]="load.window_1">
                                   </div>
                                   <div class="col-md-6">
                                     <input type="text" class="form-control" placeholder="Days Before" name="days_before_1" [(ngModel)]="load.days_before_1">
                                   </div>
                                   <div class="clearfix"></div>
                                   <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Window" name="window_2" [(ngModel)]="load.window_2">
+                                    <input type="text" class="form-control" placeholder="Load Window" name="window_2" [(ngModel)]="load.window_2">
                                   </div>
                                   <div class="col-md-6">
                                     <input type="text" class="form-control" placeholder="Days Before" name="days_before_2" [(ngModel)]="load.days_before_2">
@@ -319,7 +738,7 @@
                     </div>
                     <div class="form-group">
                         <input [(ngModel)]="discharge.port"
-                        name="port"
+                        name="discharge.port"
                         [typeahead]='filterArray(portList)'
                         class="form-control"
                         placeholder="Select Port">
@@ -333,7 +752,7 @@
                     </div>
                     <div class="form-group">
                         <input [(ngModel)]="discharge.cargo_grade"
-                        name="cargo_grade"
+                        name="discharge.cargo_grade"
                         [typeahead]='filterArray(cargoGradeList)'
                         class="form-control"
                         placeholder="Select Cargo Grade">
@@ -376,14 +795,14 @@
                                 <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                      <input type="text" class="form-control" placeholder="Window" name="window_1" [(ngModel)]="discharge.window_1">
+                                      <input type="text" class="form-control" placeholder="Discharge Window" name="window_1" [(ngModel)]="discharge.window_1">
                                     </div>
                                     <div class="col-md-6">
                                       <input type="text" class="form-control" placeholder="Days Before" name="days_before_1" [(ngModel)]="discharge.days_before_1">
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-6">
-                                      <input type="text" class="form-control" placeholder="Window" name="window_2" [(ngModel)]="discharge.window_2">
+                                      <input type="text" class="form-control" placeholder="Discharge Window" name="window_2" [(ngModel)]="discharge.window_2">
                                     </div>
                                     <div class="col-md-6">
                                       <input type="text" class="form-control" placeholder="Days Before" name="days_before_2" [(ngModel)]="discharge.days_before_2">
@@ -453,11 +872,11 @@
                               <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Shipping Details</strong></h3>
                               <div class="form-group">
                                   <div class="col-md-4">
-                                    <label  class=" control-label text-left">Required Segergation</label>
+                                    <label  class=" control-label text-left">Required Segregation</label>
                                   </div>
                                   <div class="col-md-8">
                                     <select   class="form-control" name="segergation" [(ngModel)] = "shipping.segergation">
-                                      <option value="" hidden selected> Select Required Segergation</option>
+                                      <option value="" hidden selected> Select Required Segregation</option>
                                       <option value="single">Single</option>
                                       <option value="double">Double</option>                                      
                                     </select>
@@ -537,22 +956,22 @@
                               <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Quote</strong></h3>
                               <div class="form-group">
                               <div class="col-md-4">
-                                <label  class=" control-label text-left"> Required Named Vessel</label>
+                                <label  class=" control-label text-left"> Require Named Vessel</label>
                               </div>
                               <div class="col-md-8">
                                 <select class="form-control" name="named_vessel" [(ngModel)]="quote.named_vessel">
-                                  <option value="" hidden selected> Required Named Vessel</option>
+                                  <option value="" hidden selected> Require Named Vessel</option>
                                   <option value="yes">YES</option>
                                   <option value="no">NO</option>
                                 </select>
                               </div>
                               <div class="clearfix"></div>
                               <div class="col-md-4">
-                                <label  class=" control-label text-left"> Itinerary Required</label>
+                                <label  class=" control-label text-left"> Itinerary Lock</label>
                               </div>
                               <div class="col-md-8">
                                 <select class="form-control" name="itinerary_required" [(ngModel)]="quote.itinerary_required">
-                                  <option value="" hidden selected> Itinerary Required</option>
+                                  <option value="" hidden selected> Itinerary Lock</option>
                                   <option value="yes">YES</option>
                                   <option value="no">NO</option>
                                 </select>
@@ -564,6 +983,10 @@
                               <div class="col-md-8">
                                 <select class="form-control" name="pricing" [(ngModel)]="quote.pricing">
                                   <option value="" hidden selected> Pricing</option>
+                                  <option value="Market Related">Market Related</option>
+                                  <option value="Index Related">Index Related</option>
+                                  <option value="Fixed Rate">Fixed Rate</option>
+                                  <option value="Trip Charter">Trip Charter</option>                                  
                                 </select>
                               </div>
                               <div class="clearfix"></div>
@@ -573,6 +996,9 @@
                               <div class="col-md-8">
                                 <select class="form-control" name="units" [(ngModel)]="quote.units">
                                   <option value="" hidden selected> Select Units</option>
+                                  <option value=" Per Barrel">Per Barrel</option>
+                                  <option value=" Per Cubic Meter">Per Cubic Meter</option>
+                                  <option value=" Per Gallon">Per Gallon</option>                                  
                                 </select>
                               </div>
                               <div class="clearfix"></div>
@@ -595,7 +1021,7 @@
             <div class="col-md-10 col-md-offset-1">               
             <div class="form-group pull-right">
                   <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
-                  <button type="button" class="btn btn-primary" (click)='onSubmitQuote()'>
+                  <button type="button" class="btn btn-primary" (click)='modalRef.hide();showSummery(summery)'>
                     {{modalSaveBtnTxt}}</button>
               </div>
             </div>
@@ -632,7 +1058,7 @@
         <th (click)="sort('supplier')">
             <span class="glyphicon sort-icon" *ngIf="key =='supplier'" 
             [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-            Segergation
+            Segregation
         </th>
         <th (click)="sort('receiver')">
             <span class="glyphicon sort-icon" *ngIf="key =='receiver'" 
@@ -666,6 +1092,7 @@
         <th>Date Added</th>
         <th>View Load</th>
         <th>View Discharge</th>
+        <th>Added By</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -697,6 +1124,7 @@
               <span class="glyphicon glyphicon-circle-arrow-down"></span> Discharge
             </a>                                      
         </td>
+        <td>{{item.added_by}}</td>
         <td>
           <a href="javascript:void(0)" (click)="removeQuote(i, item._id)" class="danger">
             <span class="glyphicon glyphicon-trash"></span>

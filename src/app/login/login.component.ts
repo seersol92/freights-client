@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
     this.formProcessing = true;
     this.auth.loginUser(user).subscribe(
       data => {
+         this.formProcessing = false;
       if (!data.success) {
-          this.formProcessing = false;
           this.loginError = true;
           this.messageClass = 'alert alert-danger';
           this.message = data.message;

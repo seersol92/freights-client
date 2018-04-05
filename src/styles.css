@@ -32,12 +32,20 @@ html {
     color: #d20a0a;
   }
 
+  .navbar-brand {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: black !important;
+  }
   .danger:hover, .danger:focus {
     color: #ff051c;
   }
   
 .dashboard-panel > h3{
     font-size: 12px !important;
+}
+
+.panel-info > .panel-heading {
+  background-color: #2196f3
 }
 
 .modal-header {
