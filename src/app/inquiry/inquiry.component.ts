@@ -1,5 +1,6 @@
 import { Component, TemplateRef, Pipe, PipeTransform, OnInit } from '@angular/core';
 import { Load } from '../entites/load';
+import { Price } from '../entites/price';
 import { Discharge } from '../entites/discharge';
 import { ShippingDetails } from '../entites/shipping-details';
 import { Quote } from '../entites/quote';
@@ -19,10 +20,12 @@ import { DatePipe } from '@angular/common';
 })
 export class InquiryComponent implements OnInit {
   public load: Load;
+  public quotePrice: Price;
   public quote: Quote;
   public discharge: Discharge;
   public shipping: ShippingDetails;
   public quoteId: number;
+  public detailId: number;
   inquiryQuoteList = [];
   viewList = [];
   quoteDetailsKey: String = '';
@@ -70,6 +73,7 @@ export class InquiryComponent implements OnInit {
      this.load = new Load();
      this.quote = new Quote();
      this.discharge = new Discharge();
+     this.quotePrice = new Price();
      this.shipping = new ShippingDetails();
    }
 
@@ -147,18 +151,23 @@ export class InquiryComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  updateQuotePrice (index: number, template) {
-    this.quoteId = this.inquiryQuoteList[index];
-    if (this.quoteId) {
-       this.quote.pricing = this.quoteId['pricing'];
-       this.modalRef = this.modalService.show(template);
+  updateQuotePrice (index: number, priceIndex: number, template) {
+    this.quoteId = this.inquiryQuoteList[index]['_id'];
+    if (this.quoteId && priceIndex !== null) {
+       this.quotePrice = this.inquiryQuoteList[index]['price'][priceIndex];
+    } else {
+      this.quotePrice = new Price();
     }
+    this.modalRef = this.modalService.show(template,
+      Object.assign({}, { class: 'price-modal' })
+    );
   }
 
   onUpdatePrice () {
+  this.quotePrice.quoted_by = this.auth.loggedinName;
   const data = {
-    'quote':      this.quoteId['_id'],
-    'new_price':  this.quote.pricing
+    'quote_id':      this.quoteId,
+    'updated_price':  this.quotePrice
   };
   this.formProcessing = true;
   this.auth.postRequest('/inquiry-quote/update-price', data ).subscribe(res => {
@@ -207,6 +216,48 @@ export class InquiryComponent implements OnInit {
     }
   }
 
+  editDetails(index: number, template) {
+    this.detailId = this.viewList[index]['_id'];
+    if (this.quoteDetailsKey === 'load') {
+        this.load = this.viewList[index];
+    } else {
+        this.discharge = this.viewList[index];
+    }
+    this.filterDataByType();
+    this.modalRef = this.modalService.show(template);
+  }
+
+  updateDetail() {
+    let updatedData;
+    if (this.quoteDetailsKey === 'load') {
+       updatedData =  this.load;
+    } else {
+      updatedData = this.discharge;
+    }
+    if (this.detailId) {
+         this.auth.postRequest('/inquiry-quote/update-detail', {
+           sub_doc_id : this.detailId,
+           quote_id: this.quoteId['_id'],
+           key: this.quoteDetailsKey,
+           data: updatedData
+          }).subscribe(res => {
+          this.modalRef.hide();
+          this.formProcessing = false;
+           if (!res.success) {
+             this.messageClass = 'alert alert-danger';
+             this.message = res.message;
+           } else {
+             this.messageClass = 'alert alert-success';
+             this.message = res.message;
+           }
+         setTimeout(() => {
+           this.messageClass = '';
+           this.message = '';
+         }, 10000);
+         });
+      }
+  }
+
   showSummery(template) {
     this.modalRef.hide();
     if (this.loadList.length === 0) {
@@ -217,6 +268,7 @@ export class InquiryComponent implements OnInit {
     }
     this.modalRef = this.modalService.show(template);
   }
+
   onSubmitQuote() {
     if (this.loadList.length === 0) {
       this.loadList.push(this.load);

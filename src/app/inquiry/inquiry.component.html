@@ -427,14 +427,46 @@
   <form class="form-horizontal" (submit)='onUpdatePrice()' >
   <div class="modal-body">
     <div class="col-lg-12 col-xs-12" >
-        
-          <div class="col-md-2">
-            <label  class=" control-label">Price</label>
-          </div>
-          <div class="col-md-10">
-              <input type="text" class="form-control" placeholder="Update Price" name="price" [(ngModel)]="quote.pricing">
-          </div>
-       
+      <div class="form-group">
+      <div class="col-md-2">
+        <label  class=" control-label">Price</label>
+      </div>
+      <div class="col-md-10">
+          <input type="text" class="form-control" placeholder="Update Price" name="quotePrice.price" [(ngModel)]="quotePrice.price">
+      </div>
+      </div>      
+    </div>
+    <div class="col-lg-12 col-xs-12" >
+      <div class="form-group">      
+      <div class="col-md-2">
+        <label  class=" control-label">Commnets</label>
+      </div>
+      <div class="col-md-10">
+        <textarea name="" id="" class="form-control" rows="5" placeholder="write Comments" [(ngModel)]="quotePrice.comments"
+        name="quotePrice.comments"
+        ></textarea>
+      </div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-xs-12" >
+      <div class="form-group">      
+      <div class="col-md-2">
+        <label  class=" control-label">Date</label>
+      </div>
+      <div class="col-md-10">
+        <input type="date" name="" id=""  class="form-control" [ngModel]="quotePrice.date | date:'yyyy-MM-dd'" (ngModelChange)="quotePrice.date=$event"  name="quotePrice.date">
+      </div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-xs-12" >
+      <div class="form-group">      
+      <div class="col-md-2">
+        <label  class=" control-label">Time</label>
+      </div>
+      <div class="col-md-10">
+        <input type="time" name="" id=""  class="form-control" [(ngModel)]="quotePrice.time" name="quotePrice.time">
+      </div>
+      </div>
     </div>
   </div>
   <div class="clearfix"></div>
@@ -442,15 +474,279 @@
       <div class="row"> 
       <div class="col-md-10 col-md-offset-1">               
       <div class="form-group pull-right">
-            <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
-            <button type="submit" class="btn btn-primary">
-              Update
+            <button type="submit" class="btn btn-success">
+              Accpet
+            </button>
+            <button type="submit" class="btn btn-default">
+              Counter
             </button>
         </div>
       </div>
       </div>
    
   </div> </form>
+</ng-template>
+<ng-template #editDetail>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> Edit  <span class="capitalize">{{quoteDetailsKey}}</span>  Details</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div class="modal-body">
+      <div class="col-lg-12 col-xs-12" style="border-bottom: 1px solid #265728 !important; bottom: 13px;">
+        <form action="" *ngIf="quoteDetailsKey == 'load'; else dischargeDetails">
+          <div class="form-group">
+              <input [(ngModel)]="load.supplier"
+              name="supplier"
+              [typeahead]='filterArray(supplierList)'
+              class="form-control"
+              placeholder="Select Supplier">
+          </div>
+          <div class="form-group">
+              <input [(ngModel)]="load.port"
+              name="port"
+              [typeahead]='filterArray(portList)'
+              class="form-control"
+              placeholder="Select Port">
+          </div>
+          <div class="form-group">
+              <input [(ngModel)]="load.load_terminal"
+              name="load_terminal"
+              [typeahead]='filterArray(loadTerminalList)'
+              class="form-control"
+              placeholder="Select Load Terminal">
+          </div>
+          <div class="form-group">
+              <input [(ngModel)]="load.cargo_grade"
+              name="cargo_grade"
+              [typeahead]='filterArray(cargoGradeList)'
+              class="form-control"
+              placeholder="Select Cargo Grade">
+          </div>
+          <div class="form-group">
+              <input type="text" class="form-control" placeholder="API" [(ngModel)]="load.api" name="api">
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" class="form-control" name="volume" placeholder="Volume" 
+                      [(ngModel)]="load.volume" name="volume">
+                  </div>
+              </div>
+              <div class="col-md-5 col-md-offset-1">
+                  <div class="form-group">
+                  <select class="form-control pull-right "   >
+                      <option value="" selected hidden>Select Volume</option>
+                      <option  *ngFor="let option of volumeList" [value]="option">
+                          {{option}}
+                      </option>
+                  </select>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group">
+                <div class="col-md-2">
+                  <label  class=" control-label">Date</label>
+                </div>
+                <div class="col-md-5">
+                  <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="load.date1">
+                </div>
+                <div class="col-md-5">
+                  <input type="date" class="form-control" placeholder="Load Window" name="date2" [(ngModel)]="load.date2">
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="custom-fieldset">
+                  <div class="panel panel-primary">
+                      <div class="panel-body">
+                        <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                              <input type="text" class="form-control" placeholder="Load Window" name="window_1" [(ngModel)]="load.window_1">
+                            </div>
+                            <div class="col-md-6">
+                              <input type="text" class="form-control" placeholder="Days Before" name="days_before_1" [(ngModel)]="load.days_before_1">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-6">
+                              <input type="text" class="form-control" placeholder="Load Window" name="window_2" [(ngModel)]="load.window_2">
+                            </div>
+                            <div class="col-md-6">
+                              <input type="text" class="form-control" placeholder="Days Before" name="days_before_2" [(ngModel)]="load.days_before_2">
+                            </div>
+                            <div class="col-md-12">
+                              <input type="text" class="form-control" placeholder="Comments" name="comments" [(ngModel)]="load.comments">
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group">
+                <div class="col-md-3">
+                  <label  class=" control-label text-left">Loading Tolerance</label>
+                </div>
+                <div class="col-md-9">
+                  <select   class="form-control" name="loading_tolerance" [(ngModel)]="load.loading_tolerance">
+                    <option value="" hidden selected> Select Loading Tolerance</option>
+                    <option  *ngFor="let option of loadingTolerance" [value]="option">
+                        {{option}} %
+                    </option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group">
+                <div class="col-md-3">
+                  <label  class=" control-label text-left">Volume Tolerance</label>
+                </div>
+                <div class="col-md-9">
+                  <select   class="form-control" name="volume_tolerance" [(ngModel)]="load.volume_tolerance">
+                    <option value="" hidden selected> Select Volume Tolerance</option>
+                    <option  *ngFor="let option of volumeTolerance" [value]="option">
+                        {{option}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+          </div>
+        </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-lg-12 col-xs-12">
+          <div class="row"> 
+          <div class="form-group pull-right">
+                <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)='updateDetail();'>
+                  <span class="glyphicon glyphicon-arrow-up"></span> Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</ng-template>
+<ng-template #dischargeDetails>
+  <div class="form-group">
+      <input [(ngModel)]="discharge.receiver"
+      name="receiver"
+      [typeahead]='filterArray(receiverList)'
+      class="form-control"
+      placeholder="Select Receiver">
+  </div>
+  <div class="form-group">
+      <input [(ngModel)]="discharge.port"
+      name="discharge.port"
+      [typeahead]='filterArray(portList)'
+      class="form-control"
+      placeholder="Select Port">
+  </div>
+  <div class="form-group">
+      <input [(ngModel)]="discharge.discharge_terminal"
+      name="discharge_terminal"
+      [typeahead]='filterArray(disTerminalList)'
+      class="form-control"
+      placeholder="Select Discharge Terminal">
+  </div>
+  <div class="form-group">
+      <input [(ngModel)]="discharge.cargo_grade"
+      name="discharge.cargo_grade"
+      [typeahead]='filterArray(cargoGradeList)'
+      class="form-control"
+      placeholder="Select Cargo Grade">
+  </div>
+  <div class="form-group">
+      <input type="text" class="form-control" placeholder="API" name="api" [(ngModel)]="discharge.api">
+  </div>
+  <div class="row">
+      <div class="form-group">
+          <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Volume" name="volume" [(ngModel)]="discharge.volume" >
+          </div>
+          <div class="col-md-5 col-md-offset-1">
+              <select class="form-control pull-right "   >
+                  <option value="" selected hidden>Select Volume</option>
+                  <option  *ngFor="let option of volumeList" [value]="option">
+                      {{option}}
+                  </option>
+              </select>
+          </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-2">
+        <label  class=" control-label">Date</label>
+      </div>
+      <div class="col-md-5">
+        <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="discharge.date1">
+      </div>
+      <div class="col-md-5">
+        <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="discharge.date2">
+      </div>
+    </div>
+  </div>  
+  <div class="row">
+    <div class="custom-fieldset">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+              <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Narrowing</strong></h3>
+              <div class="form-group">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Discharge Window" name="window_1" [(ngModel)]="discharge.window_1">
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Days Before" name="days_before_1" [(ngModel)]="discharge.days_before_1">
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Discharge Window" name="window_2" [(ngModel)]="discharge.window_2">
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Days Before" name="days_before_2" [(ngModel)]="discharge.days_before_2">
+                  </div>
+                  <div class="col-md-12">
+                    <input type="text" class="form-control" placeholder="Comments" name="comments" [(ngModel)]="discharge.comments">
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-3">
+        <label  class=" control-label text-left">Discharge Tolerance</label>
+      </div>
+      <div class="col-md-9">
+          <select   class="form-control" name="discharge_tolerance" [(ngModel)]="discharge.discharge_tolerance">
+              <option value="" hidden selected> Select Discharge Tolerance</option>
+              <option  *ngFor="let option of loadingTolerance" [value]="option">
+                  {{option}} %
+              </option>
+            </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-3">
+        <label  class=" control-label text-left">Volume Tolerance</label>
+      </div>
+      <div class="col-md-9">
+        <select   class="form-control" name="volume_tolerance" [(ngModel)]="discharge.volume_tolerance">
+          <option value="" hidden selected> Select Volume Tolerance</option>
+              <option  *ngFor="let option of volumeTolerance" [value]="option">
+                  {{option}}
+              </option>
+        </select>
+      </div>
+    </div>
+  </div>
 </ng-template>
 <ng-template #viewDetail>
     <div class="modal-header">
@@ -551,6 +847,10 @@
               </ng-template>
               <td>{{item.volume_tolerance}}</td>
               <td>
+                <a href="javascript:void(0)" (click)="modalRef.hide(); editDetails(i, editDetail)"> 
+                  <span class="glyphicon glyphicon-pencil"></span> 
+                </a>
+                &nbsp;&nbsp; 
                 <a href="javascript:void(0)" (click)="removeDetailItems(i)" class="danger">
                   <span class="glyphicon glyphicon-trash"></span>
                 </a>                            
@@ -1106,11 +1406,21 @@
         <td>{{item.estimate_cargo_value}}</td>
         <td>{{item.volume_inspection}}</td>
         <td>{{item.loss_control}}</td>
-        <td *ngIf="!auth.isAdmin; else updatePrice ">{{item.pricing}} $</td>
+        <td *ngIf="auth.isAdmin && item.price.length == 0; else updatePrice ">$0 &nbsp;&nbsp;
+            <a  href="javascript:void(0)" (click)="updateQuotePrice(i, null, updateModal)"> 
+                <span class="glyphicon glyphicon-pencil"></span> Update
+            </a>
+        </td>
         <ng-template #updatePrice>
           <td> 
-              {{item.pricing}}$ &nbsp;&nbsp; <a href="javascript:void(0)" (click)="updateQuotePrice(i, updateModal)"> 
-              <span class="glyphicon glyphicon-pencil"></span> Update</a>
+              <tr *ngFor="let priceList of item.price; index as p; let last = last " >
+                <td> <span [ngClass]="{'strike': !last}">${{priceList.price}}</span>
+                &nbsp;&nbsp; 
+                <a *ngIf="last" href="javascript:void(0)" (click)="updateQuotePrice(i, p, updateModal)"> 
+                    <span class="glyphicon glyphicon-pencil"></span> Update
+                </a>
+                </td>
+              </tr>
           </td>
         </ng-template>
         <td>{{ item.dateadded | date:'dd/MM/yyyy' }}</td>
