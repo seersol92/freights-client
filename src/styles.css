@@ -75,10 +75,44 @@ html {
     width: 80% !important;
     margin:30px auto
   }
+  
 } 
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+  /* Styles */
+  .quote-window {
+    min-height: 320px !important
+   }
+   .quote-summery-window {
+    min-height: 279px !important
+   }
+}
+
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+ .quote-window {
+  min-height: 320px !important
+ }
+ .quote-summery-window {
+  min-height: 279px !important
+ }
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+  /* Styles */
+  .quote-window {
+    min-height: 304px !important
+   }
+ .quote-summery-window {
+  min-height: 255px !important
+ }
+}
 
 .text-on-pannel {
   background: #fff none repeat scroll 0 0;

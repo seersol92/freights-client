@@ -52,6 +52,7 @@ export class InquiryComponent implements OnInit {
   message: String = null;
   formProcessing: Boolean = false;
   summery: Boolean = true;
+  onlyInquirySummery: Boolean = false;
   selected: string;
   constructor(
     private fb: FormBuilder,
@@ -142,8 +143,10 @@ export class InquiryComponent implements OnInit {
  createCargoModal(template) {
     this.filterDataByType();
     this.load = new Load();
-    this.loadList = [];
     this.discharge = new Discharge();
+    this.quote = new Quote();
+    this.shipping = new ShippingDetails();
+    this.loadList = [];
     this.disChargeList = [];
     this.modalTitleTxt = 'Create Inquiry';
     this.modalSaveBtnTxt = 'Save';
@@ -296,6 +299,7 @@ export class InquiryComponent implements OnInit {
 
   showSummery(template) {
     this.modalRef.hide();
+    this.onlyInquirySummery = false;
     if (this.loadList.length === 0) {
       this.loadList.push(this.load);
     }
@@ -305,6 +309,23 @@ export class InquiryComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  inquirySummery(quoteIndex: number, template) {
+    this.onlyInquirySummery = true;
+    const target_quote = this.inquiryQuoteList[quoteIndex];
+    if (target_quote['load'].length > 0) {
+         this.load = target_quote['load'][0];
+    } else {
+         this.load = new Load();
+    }
+    if (target_quote['discharge'].length > 0) {
+        this.discharge = target_quote['discharge'][0];
+    } else {
+        this.load = new Load();
+    }
+    this.quote = target_quote;
+    this.shipping = target_quote;
+    this.modalRef = this.modalService.show(template);
+  }
   onSubmitQuote() {
     if (this.loadList.length === 0) {
       this.loadList.push(this.load);
