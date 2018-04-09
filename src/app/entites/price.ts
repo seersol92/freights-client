@@ -4,13 +4,13 @@ export class Price {
     time: string;
     comments: string;
     quoted_by: any;
-    is_active: boolean;
+    status: string;
     constructor() {
         this.price = '';
         this.date = '';
         this.time = '';
         this.comments = '';
         this.quoted_by = '';
-        this.is_active = true;
+        this.status = 'pending';
     }
 }

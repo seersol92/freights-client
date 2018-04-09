@@ -3,12 +3,14 @@ export class Quote {
     itinerary_required: string;
     pricing: string;
     units: string;
-    required_validity: string;
+    required_validity_date: string;
+    required_validity_time: string;
     constructor() {
         this.named_vessel = '';
         this.itinerary_required = '';
         this.pricing = '';
         this.units = '';
-        this.required_validity = '';
+        this.required_validity_date = '';
+        this.required_validity_time = '';
     }
 }

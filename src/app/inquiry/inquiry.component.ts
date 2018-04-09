@@ -155,6 +155,12 @@ export class InquiryComponent implements OnInit {
     this.quoteId = this.inquiryQuoteList[index]['_id'];
     if (this.quoteId && priceIndex !== null) {
        this.quotePrice = this.inquiryQuoteList[index]['price'][priceIndex];
+       if (this.quotePrice.status === 'rejected') {
+          this.quotePrice = new Price();
+          this.quotePrice.status = 'rejected';
+       } else if (this.quotePrice.status === '' || !this.quotePrice.status) {
+          this.quotePrice.status = 'pending';
+       }
     } else {
       this.quotePrice = new Price();
     }
@@ -163,8 +169,38 @@ export class InquiryComponent implements OnInit {
     );
   }
 
+  /**
+   * Counter/Accept Button Action
+   */
+
+  onChangePriceStatus (status: string) {
+    const data = {
+      'quote_id':  this.quoteId,
+      'price_id':  this.quotePrice['_id'],
+      'status'  : status
+    };
+    this.formProcessing = true;
+    this.auth.postRequest('/inquiry-quote/price-status', data ).subscribe(res => {
+    this.modalRef.hide();
+    this.formProcessing = false;
+    if (!res.success) {
+      this.messageClass = 'alert alert-danger';
+      this.message = res.message;
+    } else {
+      this.getQuote();
+      this.messageClass = 'alert alert-success';
+      this.message = res.message;
+    }
+    setTimeout(() => {
+      this.messageClass = '';
+      this.message = '';
+    }, 10000);
+    });
+  }
+
   onUpdatePrice () {
   this.quotePrice.quoted_by = this.auth.loggedinName;
+  this.quotePrice.status    = 'pending';
   const data = {
     'quote_id':      this.quoteId,
     'updated_price':  this.quotePrice
