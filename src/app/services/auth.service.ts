@@ -10,8 +10,8 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class AuthService {
   // domain = 'https://mean-app2-seersol.c9users.io:8081';
-  // domain = 'http://67.207.87.102:443';
-  domain = 'http://localhost:443';
+   domain = 'http://67.207.87.102:443';
+  // domain = 'http://localhost:443';
   authToken;
   user;
   public isAdmin: Boolean = false;
