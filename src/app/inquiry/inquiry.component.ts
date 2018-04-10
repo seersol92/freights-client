@@ -54,6 +54,9 @@ export class InquiryComponent implements OnInit {
   summery: Boolean = true;
   onlyInquirySummery: Boolean = false;
   selected: string;
+  timer: any = '2018-04-28 01:00:00';
+  time = {hour: 13, minute: 30};
+  seconds = true;
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -154,6 +157,24 @@ export class InquiryComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  onTimerEnd(index: string, id: any) {
+    this.auth.postRequest('/inquiry-quote/update-validity', { 'quote_id': id} ).subscribe(res => {
+       if (!res.success) {
+        this.formProcessing = false;
+        this.messageClass = 'alert alert-danger';
+        this.message = res.message;
+      } else {
+        this.getQuote();
+        this.messageClass = 'alert alert-success';
+        this.message = res.message;
+      }
+      setTimeout(() => {
+        this.messageClass = '';
+        this.message = '';
+      }, 10000);
+      });
+  }
+
   updateQuotePrice (index: number, priceIndex: number, template) {
     this.quoteId = this.inquiryQuoteList[index]['_id'];
     if (this.quoteId && priceIndex !== null) {
@@ -202,29 +223,29 @@ export class InquiryComponent implements OnInit {
   }
 
   onUpdatePrice () {
-  this.quotePrice.quoted_by = this.auth.loggedinName;
-  this.quotePrice.status    = 'pending';
-  const data = {
-    'quote_id':      this.quoteId,
-    'updated_price':  this.quotePrice
-  };
-  this.formProcessing = true;
-  this.auth.postRequest('/inquiry-quote/update-price', data ).subscribe(res => {
-  this.modalRef.hide();
-  this.formProcessing = false;
-   if (!res.success) {
-    this.messageClass = 'alert alert-danger';
-    this.message = res.message;
-  } else {
-    this.getQuote();
-    this.messageClass = 'alert alert-success';
-    this.message = res.message;
-  }
-  setTimeout(() => {
-    this.messageClass = '';
-    this.message = '';
-  }, 10000);
-  });
+    this.quotePrice.quoted_by = this.auth.loggedinName;
+    this.quotePrice.status    = 'pending';
+    const data = {
+      'quote_id':      this.quoteId,
+      'updated_price':  this.quotePrice
+    };
+    this.formProcessing = true;
+    this.auth.postRequest('/inquiry-quote/update-price', data ).subscribe(res => {
+    this.modalRef.hide();
+    this.formProcessing = false;
+    if (!res.success) {
+      this.messageClass = 'alert alert-danger';
+      this.message = res.message;
+    } else {
+      this.getQuote();
+      this.messageClass = 'alert alert-success';
+      this.message = res.message;
+    }
+    setTimeout(() => {
+      this.messageClass = '';
+      this.message = '';
+    }, 10000);
+    });
   }
   async getQuote() {
     await this.auth.getRequest('/inquiry-quote', null ).subscribe(res => {
@@ -306,7 +327,16 @@ export class InquiryComponent implements OnInit {
     if (this.disChargeList.length === 0) {
       this.disChargeList.push(this.discharge);
     }
+    this.makeTime();
     this.modalRef = this.modalService.show(template);
+  }
+
+  makeTime () {
+    const time = this.quote.required_validity_time;
+    const hour = (time['hour'] <= 9 ? '0' + time['hour'] : time['hour'] );
+    const minute = (time['minute'] <= 9 ? '0' + time['minute'] : time['minute'] );
+    const sec = '00';
+    this.quote.required_validity_time = hour + ':' + minute + ':' + sec;
   }
 
   inquirySummery(quoteIndex: number, template) {
@@ -340,6 +370,8 @@ export class InquiryComponent implements OnInit {
       'quote':      this.quote,
       'added_by':   this.auth.loggedinName
     };
+    console.log(data);
+    // return false;
     this.formProcessing = true;
     this.auth.postRequest('/inquiry-quote/create', data ).subscribe(res => {
     this.modalRef.hide();

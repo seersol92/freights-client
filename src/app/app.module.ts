@@ -19,10 +19,11 @@ import {ModalModule} from 'ngx-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
 import { InquiryComponent } from './inquiry/inquiry.component';
-import { TypeaheadModule } from 'ngx-bootstrap';
+import { TypeaheadModule  } from 'ngx-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './user/user.component';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CountdownTimerModule } from 'ngx-countdown-timer';
+import { TimerPipe } from './_pipe/timer.pipe';
 
 
 const APP_ROUTES: Routes = [
@@ -73,7 +74,8 @@ const APP_ROUTES: Routes = [
     DashboardComponent,
     ProfileComponent,
     InquiryComponent,
-    UserComponent
+    UserComponent,
+    TimerPipe
   ],
   imports: [
     BrowserModule,
@@ -83,12 +85,12 @@ const APP_ROUTES: Routes = [
     Ng2SearchPipeModule,
     FlashMessagesModule,
     ReactiveFormsModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    BrowserAnimationsModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot(APP_ROUTES),
     ModalModule.forRoot(),
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    CountdownTimerModule.forRoot()
+
   ],
   providers: [AuthService, AuthGuard, NotAuthGuard, LoggedInService],
   bootstrap: [AppComponent],
