@@ -11,6 +11,6 @@ export class Price {
         this.time = '';
         this.comments = '';
         this.quoted_by = '';
-        this.status = 'pending';
+        this.status = '';
     }
 }

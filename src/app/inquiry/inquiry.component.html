@@ -458,7 +458,13 @@
         <input type="time" name="" id=""  class="form-control" [(ngModel)]="quotePrice.time" name="quotePrice.time">
       </div>
       </div>
-      <p *ngIf="quotePrice.status === 'pending'"
+      <div class="alert alert-dismissible alert-danger"*ngIf="quotePrice.status === 'rejected'">
+          Quote price is rejected. Now you can submit a new price.
+      </div> 
+      <div class="alert alert-dismissible alert-success" *ngIf="quotePrice.status ==='accepted'">
+          Quote price accepted.
+      </div>
+      <!-- <p *ngIf="quotePrice.status === 'pending'"
         class="text-primary"> Your quote status is pending you can either accept or reject quote.
       </p>
       <p *ngIf="quotePrice.status ==='accepted'"
@@ -466,7 +472,7 @@
       </p>
       <p *ngIf="quotePrice.status === 'rejected'"
         class="text-danger">Quote price is rejected. Now you can submit a new price.
-      </p>
+      </p> -->
     </div>
   </div>
   <div class="clearfix"></div>
@@ -474,23 +480,45 @@
       <div class="row"> 
       <div class="col-lg-12 col-xs-12"> 
       <div class="col-md-10 col-md-offset-2">              
-      <div class="form-group pull-right" *ngIf="">
-        <div *ngIf="quotePrice.status == 'pending';">
-          <button type="button" class="btn btn-default" (click)='onChangePriceStatus("rejected")'>
-            Counter
-          </button>
-          <button type="button" class="btn btn-success"  (click)='onChangePriceStatus("accepted")'>
-              Accpet
-          </button>
+      <div class="form-group pull-right">
+        <div *ngIf="!auth.isAdmin; else imAdmin">
+            <div *ngIf="quotePrice.status == 'pending' && quotePrice.quoted_by =='admin'; else waitForAdmin ">
+                <button type="button" class="btn btn-default" (click)='onChangePriceStatus("rejected")'>
+                  Counter
+                </button>
+                <button type="button" class="btn btn-success"  (click)='onChangePriceStatus("accepted")'>
+                    Accpet
+                </button>
+              </div>
+              <ng-template #waitForAdmin>
+              </ng-template>
+              <div *ngIf="quotePrice.status =='rejected';">
+                  <button type="button" class="btn btn-default" (click)='this.modalRef.hide()'>
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn btn-success"  >
+                      Submit New Price
+                  </button>
+              </div>
         </div>
-        <div *ngIf="quotePrice.status =='rejected';">
-            <button type="button" class="btn btn-default" (click)='this.modalRef.hide()'>
-              Cancel
-            </button>
-            <button type="submit" class="btn btn-success"  >
-                Submit New Price
-            </button>
-        </div>
+        <ng-template #imAdmin>          
+            <div *ngIf="quotePrice.status == 'pending'; else waitForAction ">
+              <button type="button" class="btn btn-default" (click)='onChangePriceStatus("rejected")'>
+                Counter
+              </button>
+              <button type="button" class="btn btn-success"  (click)='onChangePriceStatus("accepted")'>
+                  Accpet
+              </button>
+            </div>
+            <div *ngIf="quotePrice.status =='rejected'  || quotePrice.status =='';">
+                <button type="button" class="btn btn-default" (click)='this.modalRef.hide()'>
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-success"  >
+                    Submit New Price
+                </button>
+            </div>
+        </ng-template>
       </div>
       </div>
       </div>
@@ -1379,6 +1407,7 @@
           <th>View</th>
           <th>Added By</th>
           <th>Supplier</th>
+          <th>Port</th>
           <th>Price</th>
           <th>Units</th>
           <th>Valid Until</th>
@@ -1392,12 +1421,13 @@
           <td>{{ item.dateadded | date:'dd/MM/yyyy' }}</td>
           <td><a href="javascript:void(0);" (click) = 'inquirySummery(i, summery);'>View</a></td>
           <td>{{item.added_by}}</td>
-          <td>
-              <a href="javascript:void(0)" (click)="viewContent(i, 'load', viewDetail)" >
-                <span class="glyphicon glyphicon-circle-arrow-up"></span> Load 
-              </a>                            
-          </td>
           <td>{{item.load[0].supplier}}</td>
+          <td>
+           <!-- <a href="javascript:void(0)" (click)="viewContent(i, 'load', viewDetail)" >
+              <span class="glyphicon glyphicon-circle-arrow-up"></span> Load 
+            </a> -->
+            {{item.load[0].port}}                      
+        </td>
           <td *ngIf="auth.isAdmin && item.price.length == 0; else updatePrice ">$0 &nbsp;&nbsp;
               <a  href="javascript:void(0)" (click)="updateQuotePrice(i, null, updateModal)"> 
                   <span class="glyphicon glyphicon-pencil"></span> Update
