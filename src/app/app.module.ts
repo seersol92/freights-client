@@ -24,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './user/user.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { TimerPipe } from './_pipe/timer.pipe';
+import { InquiryNoPipe } from './_pipe/inquiry-no.pipe';
 
 
 const APP_ROUTES: Routes = [
@@ -75,7 +76,8 @@ const APP_ROUTES: Routes = [
     ProfileComponent,
     InquiryComponent,
     UserComponent,
-    TimerPipe
+    TimerPipe,
+    InquiryNoPipe
   ],
   imports: [
     BrowserModule,

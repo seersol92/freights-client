@@ -142,20 +142,6 @@ and (min-width : 1824px) {
   text-transform:capitalize;
 }
 
-.fixed-panel {
-  min-height: 220px;
-  overflow-y:scroll;
-  overflow-x:hidden;
-}
-
-.fixed-panel > ol {
-  padding-left: 6px !important; 
-}
-
-.fixed-panel > li {
-  text-align: left !important; 
-}
-
 .price-modal {
   overflow-x: hidden !important;
   overflow-y: hidden !important;
@@ -166,3 +152,5 @@ and (min-width : 1824px) {
 .strike {
   text-decoration: line-through;
 }
+
+

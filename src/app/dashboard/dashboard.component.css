@@ -13,3 +13,29 @@
       margin:30px auto
     }
   }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  thead, tbody, tr, td, th { display: block; }
+  
+  tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+  
+  tbody {
+    height: 250px;
+    overflow-y: auto;
+  }
+  
+  
+  tbody td, thead th {
+    width: 33%;
+    float: left;
+  }

@@ -7,16 +7,31 @@
             <div [ngClass]="messageClass">{{ message }}</div>
         </div>
     </div>
-    <div class=" text-center">
-        <div class="col-sm-2">
+    <div class="">
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">SUPPLIER</h3>
                 </div>
                 <div class="panel-body fixed-panel">
-                    <ol  >
-                        <li  *ngFor="let item of supplierList; index as i " >{{item.name}}</li>
-                    </ol>
+                    <table class="table fixed" >
+                        <tbody>
+                            <tr *ngFor="let item of supplierList; index as i ">
+                            <td>{{i+1}}</td>
+                            <td> {{item.name}} </td>
+                            <td>
+                                <span class="pull-right">
+                                <a  href="javascript:void(0)" (click)="onEditContent(supplierList, i, updateContent)"> 
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a  href="javascript:void(0)" (click)="onRemoveContent(supplierList, i)"> 
+                                    <span class="glyphicon glyphicon-trash danger"></span>
+                                </a>
+                                </span> 
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="panel-footer">
                     <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Supplier')" >
@@ -25,15 +40,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">RECEIVER</h3>
                 </div>
                 <div class="panel-body fixed-panel">
-                    <ol  >
-                        <li  *ngFor="let item of receiverList; index as i " >{{item.name}}</li>
-                    </ol>
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let item of receiverList; index as i ">
+                        <td>{{i+1}}</td>
+                        <td> {{item.name}} </td>
+                        <td>
+                            <span class="pull-right">
+                            <a  href="javascript:void(0)" (click)="onEditContent(receiverList, i, updateContent)"> 
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a  href="javascript:void(0)" (click)="onRemoveContent(receiverList, i)"> 
+                                <span class="glyphicon glyphicon-trash danger"></span>
+                            </a>
+                            </span> 
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
                 <div class="panel-footer">
                     <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Receiver')" >
@@ -42,15 +72,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">LOAD TERMINAL</h3>
                 </div>
                 <div class="panel-body fixed-panel">
-                    <ol  >
-                        <li  *ngFor="let item of loadTerminalList; index as i ">{{item.name}}</li>
-                    </ol>
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let item of loadTerminalList; index as i ">
+                        <td>{{i+1}}</td>
+                        <td> {{item.name}} </td>
+                        <td>
+                            <span class="pull-right">
+                            <a  href="javascript:void(0)" (click)="onEditContent(loadTerminalList, i, updateContent)"> 
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a  href="javascript:void(0)" (click)="onRemoveContent(loadTerminalList, i)"> 
+                                <span class="glyphicon glyphicon-trash danger"></span>
+                            </a>
+                            </span> 
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
                 <div class="panel-footer">
                     <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Load Terminal')" >
@@ -59,15 +104,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="clearfix"></div>
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading dashboard-panel ">
                     <h3 class="panel-title">DISCHARGE TERMINAL</h3>
                 </div>
-                <div class="panel-body fixed-panel">
-                <ol  >
-                    <li  *ngFor="let item of disTerminalList; index as i ">{{item.name}}</li>
-                </ol>
+                <div class="panel-body ">
+                <table class="table ">
+                <tbody>
+                    <tr *ngFor="let item of disTerminalList; index as i ">
+                    <td>{{i+1}}</td>
+                    <td> {{item.name}} </td>
+                    <td>
+                        <span class="pull-right">
+                        <a  href="javascript:void(0)" (click)="onEditContent(disTerminalList, i, updateContent)"> 
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a  href="javascript:void(0)" (click)="onRemoveContent(disTerminalList, i)"> 
+                            <span class="glyphicon glyphicon-trash danger"></span>
+                        </a>
+                        </span> 
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
                 </div>
                 <div class="panel-footer">
                     <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Discharge Terminal')" >
@@ -76,15 +137,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">CARGO GRADE</h3>
                 </div>
                 <div class="panel-body fixed-panel">
-                <ol  >
-                    <li  *ngFor="let item of cargoGradeList; index as i ">{{item.name}}</li>
-                </ol>
+                <table class="table fixed" >
+                    <tbody>
+                        <tr *ngFor="let item of cargoGradeList; index as i ">
+                        <td>{{i+1}}</td>
+                        <td> {{item.name}} </td>
+                        <td>
+                            <span class="pull-right">
+                            <a  href="javascript:void(0)" (click)="onEditContent(cargoGradeList, i, updateContent)"> 
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a  href="javascript:void(0)" (click)="onRemoveContent(cargoGradeList, i)"> 
+                                <span class="glyphicon glyphicon-trash danger"></span>
+                            </a>
+                            </span> 
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
                 <div class="panel-footer">
                     <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Cargo Grade')" >
@@ -93,15 +169,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading dashboard-panel">
                     <h3 class="panel-title">PORT</h3>
                 </div>
                 <div class="panel-body fixed-panel">
-                <ol  >
-                    <li  *ngFor="let item of portList; index as i ">{{item.name}}</li>
-                </ol>
+                <table class="table fixed" >
+                    <tbody>
+                        <tr *ngFor="let item of portList; index as i ">
+                        <td>{{i+1}}</td>
+                        <td> {{item.name}} </td>
+                        <td>
+                            <span class="pull-right">
+                            <a  href="javascript:void(0)" (click)="onEditContent(portList, i, updateContent)"> 
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a  href="javascript:void(0)" (click)="onRemoveContent(portList, i)"> 
+                                <span class="glyphicon glyphicon-trash danger"></span>
+                            </a>
+                            </span> 
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
                 <div class="panel-footer">
                     <button class="btn btn-success btn-block" (click)="addContentModal(newContent, 'Port')" >
@@ -116,14 +207,41 @@
     <app-inquiry ></app-inquiry>
 </ng-template>
 <ng-template #newContent>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">New {{newContentType}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal"  [formGroup]="addContentForm" (submit)="create()">
+            <fieldset>
+                <div class="form-group">
+                <label for="name" class="col-lg-2 control-label"> NAME</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" formControlName="name" id="name" placeholder=" NAME" > 
+                </div>
+                </div>
+                <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2 text-right">
+                    <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
+                    <button type="submit" [disabled]="!addContentForm.valid || formProcessing" class="btn btn-primary">Submit</button>
+                </div>
+                </div>
+            </fieldset>
+        </form>        
+    </div>
+</ng-template>
+
+<ng-template #updateContent>
 <div class="modal-header">
-    <h4 class="modal-title pull-left">New {{newContentType}}</h4>
+    <h4 class="modal-title pull-left">Edit Detail</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
     <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-    <form class="form-horizontal"  [formGroup]="addContentForm" (submit)="create()">
+    <form class="form-horizontal"  [formGroup]="addContentForm" (submit)="onUpdateContent()">
         <fieldset>
             <div class="form-group">
             <label for="name" class="col-lg-2 control-label"> NAME</label>
@@ -134,7 +252,7 @@
             <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2 text-right">
                 <button type="button" class="btn btn-default" aria-label="Close" (click)="modalRef.hide()">Cancel</button>
-                <button type="submit" [disabled]="!addContentForm.valid || formProcessing" class="btn btn-primary">Submit</button>
+                <button type="submit" [disabled]="!addContentForm.valid || formProcessing" class="btn btn-primary">Update</button>
             </div>
             </div>
         </fieldset>

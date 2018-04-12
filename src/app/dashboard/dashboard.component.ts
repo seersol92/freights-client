@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   cargoGradeList: any[] = [] ;
   formProcessing: Boolean = false;
   isAdmin: Boolean = false;
+  editContentId: String = '';
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -53,7 +54,7 @@ export class DashboardComponent implements OnInit {
       name: [null, Validators.compose([
             Validators.required,
             Validators.minLength(3),
-            Validators.maxLength(20)
+            Validators.maxLength(30)
           ])
       ]
     });
@@ -103,7 +104,7 @@ export class DashboardComponent implements OnInit {
       if (!res.success) {
           this.messageClass = 'alert alert-danger';
           this.message = 'Something went wrong!!';
-      }else {
+      } else {
           this.fetchList();
           this.messageClass = 'alert alert-success';
           this.message = 'New ' + this.getFormData().type + ' Has Been Created :)';
@@ -118,6 +119,68 @@ export class DashboardComponent implements OnInit {
   addContentModal(template, contentName) {
     this.newContentType = contentName;
     this.addContentForm.setValue({name: null});
-    this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template,
+      Object.assign({}, { class: 'price-modal' })
+    );
+  }
+
+  onRemoveContent(list, index: number) {
+    const id = list[index]['_id'];
+    if (confirm('Are you sure to delete this data?') ) {
+      if (id) {
+        this.auth.postRequest('/content/delete-detail', {
+          content_id: id,
+         }).subscribe(res => {
+          if (!res.success) {
+            this.messageClass = 'alert alert-danger';
+            this.message = res.message;
+          } else {
+            list.splice(index, 1);
+            this.messageClass = 'alert alert-success';
+            this.message = res.message;
+          }
+        setTimeout(() => {
+          this.messageClass = '';
+          this.message = '';
+        }, 10000);
+        });
+      }
+    }
+  }
+
+  onEditContent(list, index: number, template) {
+    this.editContentId = list[index]['_id'];
+      if (this.editContentId) {
+        this.addContentForm.patchValue({
+          name: list[index]['name']
+        });
+        this.modalRef = this.modalService.show(template,
+          Object.assign({}, { class: 'price-modal' })
+        );
+      }
+  }
+
+  onUpdateContent() {
+    const data = {
+      content_id: this.editContentId,
+      updated_name: this.getFormData().name
+    };
+    this.formProcessing = true;
+    this.auth.postRequest('/content/update-detail', data).subscribe(res => {
+      this.modalRef.hide();
+      this.formProcessing = false;
+      if (!res.success) {
+        this.messageClass = 'alert alert-danger';
+        this.message = res.message;
+      } else {
+        this.fetchList();
+        this.messageClass = 'alert alert-success';
+        this.message = res.message;
+      }
+      setTimeout(() => {
+        this.messageClass = '';
+        this.message = '';
+      }, 10000);
+    });
   }
 }

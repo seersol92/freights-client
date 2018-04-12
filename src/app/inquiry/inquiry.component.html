@@ -474,7 +474,7 @@
       <div class="row"> 
       <div class="col-lg-12 col-xs-12"> 
       <div class="col-md-10 col-md-offset-2">              
-      <div class="form-group pull-right">
+      <div class="form-group pull-right" *ngIf="">
         <div *ngIf="quotePrice.status == 'pending';">
           <button type="button" class="btn btn-default" (click)='onChangePriceStatus("rejected")'>
             Counter
@@ -1378,7 +1378,7 @@
           <th>Date Added</th>
           <th>View</th>
           <th>Added By</th>
-          <th>View Load</th>
+          <th>Supplier</th>
           <th>Price</th>
           <th>Units</th>
           <th>Valid Until</th>
@@ -1388,7 +1388,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of inquiryQuoteList; index as i " >
-          <td>{{ item.dateadded | date:'yy'}}###{{i+1}}</td>
+          <td>{{ item.dateadded | date:'yy'}}{{i+1 | inquiryNo }}</td>
           <td>{{ item.dateadded | date:'dd/MM/yyyy' }}</td>
           <td><a href="javascript:void(0);" (click) = 'inquirySummery(i, summery);'>View</a></td>
           <td>{{item.added_by}}</td>
@@ -1397,6 +1397,7 @@
                 <span class="glyphicon glyphicon-circle-arrow-up"></span> Load 
               </a>                            
           </td>
+          <td>{{item.load[0].supplier}}</td>
           <td *ngIf="auth.isAdmin && item.price.length == 0; else updatePrice ">$0 &nbsp;&nbsp;
               <a  href="javascript:void(0)" (click)="updateQuotePrice(i, null, updateModal)"> 
                   <span class="glyphicon glyphicon-pencil"></span> Update
