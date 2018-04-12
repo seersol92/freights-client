@@ -455,7 +455,7 @@
         <label  class=" control-label">Time</label>
       </div>
       <div class="col-md-10">
-        <input type="time" name="" id=""  class="form-control" [(ngModel)]="quotePrice.time" name="quotePrice.time">
+          <ngb-timepicker [(ngModel)]="quotePrice.time" name="quotePrice.time"></ngb-timepicker>  
       </div>
       </div>
       <div class="alert alert-dismissible alert-danger"*ngIf="quotePrice.status === 'rejected'">
@@ -1355,7 +1355,6 @@
                         <div class="col-md-4">
                             <ngb-timepicker [(ngModel)]="quote.required_validity_time" name="quote.required_validity_time"></ngb-timepicker>  
                         </div>
-                        {{ quote.required_validity_time | json }}
                         </div>
                       </div>
                   </div>
@@ -1378,7 +1377,7 @@
 </ng-template>
 <div class="row page-header">
     <div class="col-lg-8  col-xs-8">
-        <h3>INQUIRY HISTORY</h3>
+        <h5>INQUIRY HISTORY</h5>
     </div>
     <div class="col-lg-4  col-xs-4 header-btn">
         <button  class="btn btn-success pull-right" (click)="createCargoModal(template)">New Inquiry</button>
