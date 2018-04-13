@@ -5,6 +5,8 @@ export class Quote {
     units: string;
     required_validity_date: string;
     required_validity_time: string;
+    price_request: boolean;
+    user_id: any;
     constructor() {
         this.named_vessel = '';
         this.itinerary_required = '';
@@ -12,5 +14,7 @@ export class Quote {
         this.units = '';
         this.required_validity_date = '';
         this.required_validity_time = '';
+        this.price_request = true;
+        this.user_id = '';
     }
 }

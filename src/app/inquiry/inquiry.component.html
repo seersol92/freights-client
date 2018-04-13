@@ -1,3 +1,19 @@
+<ng-template #newquoteprice>
+      <button type="button" class="btn btn-default" (click)='this.modalRef.hide()'>
+      Cancel
+      </button>
+      <button type="submit" class="btn btn-success"  >
+        Submit New Price
+      </button>
+</ng-template>
+<ng-template #quotepriceaction>
+    <button type="button" class="btn btn-default" (click)='onChangePriceStatus("rejected")'>
+        Counter
+    </button>
+    <button type="button" class="btn btn-success"  (click)='onChangePriceStatus("accepted")'>
+        Accept
+    </button>
+</ng-template>
 <ng-template #summery>
     <div class="modal-header">
       <h4 class="modal-title pull-left">Inquiry Summery</h4>
@@ -220,7 +236,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <label  class=" control-label text-left">Discharge Tolerance</label>
                 </div>
                 <div class="col-md-4">
@@ -382,11 +398,12 @@
                           </div>
                           <div class="clearfix"></div>
                           <div class="col-md-4">
-                              <label  class=" control-label text-left"> Required Validity</label>
-                            </div>
-                            <div class="col-md-8">
+                            <label  class=" control-label text-left"> Required Validity</label>
+                          </div>
+                          <div class="col-md-8">
                               {{quote.required_validity_date}} - {{quote.required_validity_time}}
-                            </div>
+                          </div>
+                          <div class="clearfix"></div>
                           </div>
                         </div>
                     </div>
@@ -458,73 +475,52 @@
           <ngb-timepicker [(ngModel)]="quotePrice.time" name="quotePrice.time"></ngb-timepicker>  
       </div>
       </div>
-      <div class="alert alert-dismissible alert-danger"*ngIf="quotePrice.status === 'rejected'">
-          Quote price is rejected. Now you can submit a new price.
-      </div> 
-      <div class="alert alert-dismissible alert-success" *ngIf="quotePrice.status ==='accepted'">
-          Quote price accepted.
-      </div>
-      <!-- <p *ngIf="quotePrice.status === 'pending'"
-        class="text-primary"> Your quote status is pending you can either accept or reject quote.
-      </p>
-      <p *ngIf="quotePrice.status ==='accepted'"
-      class="text-success"> Quote price accepted.
-      </p>
-      <p *ngIf="quotePrice.status === 'rejected'"
-        class="text-danger">Quote price is rejected. Now you can submit a new price.
-      </p> -->
     </div>
   </div>
   <div class="clearfix"></div>
   <div class="modal-footer">
       <div class="row"> 
-      <div class="col-lg-12 col-xs-12"> 
-      <div class="col-md-10 col-md-offset-2">              
-      <div class="form-group pull-right">
-        <div *ngIf="!auth.isAdmin; else imAdmin">
-            <div *ngIf="quotePrice.status == 'pending' && quotePrice.quoted_by =='admin'; else waitForAdmin ">
-                <button type="button" class="btn btn-default" (click)='onChangePriceStatus("rejected")'>
-                  Counter
-                </button>
-                <button type="button" class="btn btn-success"  (click)='onChangePriceStatus("accepted")'>
-                    Accpet
-                </button>
+      <div class="col-lg-12 col-xs-12" *ngIf="targetInquiryQuote.validity_status; else validityExpiredDiv"> 
+        <div class="col-md-10 col-md-offset-2">              
+        <div class="form-group">
+            <div *ngIf="quotePrice.status === 'accepted'" class="label label-success text-left">Congrats, Quote Accepted</div>  
+          <div *ngIf="!auth.isAdmin; else imAdmin">
+              <!--USER-->
+              <div *ngIf="quotePrice.quoted_by === auth.loggedinName; else quotedByAdmin">
+                <p *ngIf="quotePrice.status === 'pending'"  class="label label-primary text-left"> Waiting For Admin To Take Action</p>
+                <p *ngIf="quotePrice.status === 'rejected'"  class="label label-warning text-left"> Quote Rejected By Admin. Please Wait To Get New Price Quote.</p>
               </div>
-              <ng-template #waitForAdmin>
+              <ng-template #quotedByAdmin>
+                  <div *ngIf="targetInquiryQuote.status === 'pending'  then quotepriceaction;"> </div>
+                  <div *ngIf="targetInquiryQuote.status === 'rejected'  then newquoteprice"></div>
               </ng-template>
-              <div *ngIf="quotePrice.status =='rejected';">
-                  <button type="button" class="btn btn-default" (click)='this.modalRef.hide()'>
-                    Cancel
-                  </button>
-                  <button type="submit" class="btn btn-success"  >
-                      Submit New Price
-                  </button>
+          </div>
+          <ng-template #imAdmin>
+              <div *ngIf="quotePrice.quoted_by === auth.loggedinName; else quotedByUser">
+                  <p *ngIf="quotePrice.status === 'pending'" class="label label-primary text-left"> Waiting For User To Take Action</p>
+                  <p *ngIf="quotePrice.status === 'rejected'"  class="label label-warning text-left"> Quote Rejected By User. Please Wait To Get New Price Quote.</p>
               </div>
+              <div *ngIf="targetInquiryQuote.price_request then  newquoteprice"> </div>
+              <ng-template #quotedByUser>
+                  <div *ngIf="!targetInquiryQuote.price_request && targetInquiryQuote.status === 'pending'  then quotepriceaction;"> </div>
+                  <div *ngIf="!targetInquiryQuote.price_request && targetInquiryQuote.status === 'rejected'  then newquoteprice"></div>
+              </ng-template>        
+          </ng-template>
         </div>
-        <ng-template #imAdmin>          
-            <div *ngIf="quotePrice.status == 'pending'; else waitForAction ">
-              <button type="button" class="btn btn-default" (click)='onChangePriceStatus("rejected")'>
-                Counter
-              </button>
-              <button type="button" class="btn btn-success"  (click)='onChangePriceStatus("accepted")'>
-                  Accpet
-              </button>
+        </div>
+      </div>
+      <ng-template #validityExpiredDiv>
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-dismissible alert-danger text-left">
+                <strong>Oh no!</strong> 
+                Time Validity For This Quote Is Expired.
             </div>
-            <div *ngIf="quotePrice.status =='rejected'  || quotePrice.status =='';">
-                <button type="button" class="btn btn-default" (click)='this.modalRef.hide()'>
-                  Cancel
-                </button>
-                <button type="submit" class="btn btn-success"  >
-                    Submit New Price
-                </button>
-            </div>
-        </ng-template>
-      </div>
-      </div>
-      </div>
+        </div>
+      </ng-template>
       </div>
    
-  </div> </form>
+  </div> 
+</form>
 </ng-template>
 <ng-template #editDetail>
     <div class="modal-header">
@@ -1010,13 +1006,13 @@
           </div>
           <div class="row">
               <div class="form-group">
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <label  class=" control-label">Load Window</label>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                   <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="load.date1">
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                   <input type="date" class="form-control" placeholder="Load Window" name="date2" [(ngModel)]="load.date2">
                 </div>
               </div>
@@ -1117,19 +1113,6 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                  <div class="col-md-2">
-                    <label  class=" control-label">Load Window</label>
-                  </div>
-                  <div class="col-md-5">
-                    <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="discharge.date1">
-                  </div>
-                  <div class="col-md-5">
-                    <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="discharge.date2">
-                  </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group">
                   <div class="col-md-3">
                     <label  class=" control-label text-left">Discharge Tolerance</label>
                   </div>
@@ -1155,6 +1138,19 @@
                               {{option}}
                           </option>
                     </select>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    <label  class=" control-label">Load Window</label>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="discharge.date1">
+                  </div>
+                  <div class="col-md-4">
+                    <input type="date" class="form-control" placeholder="Load Window" name="date1" [(ngModel)]="discharge.date2">
                   </div>
                 </div>
             </div>
@@ -1346,7 +1342,7 @@
                             <label  class=" control-label text-left"> Required Validity Date</label>
                         </div>
                         <div class="col-md-4">
-                          <input type="date" class="form-control" name="required_validity_date" [(ngModel)]="quote.required_validity_date">
+                          <input type="date" class="form-control" name="quote.required_validity_date" [(ngModel)]="quote.required_validity_date">
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-md-4">
@@ -1427,29 +1423,41 @@
             </a> -->
             {{item.load[0].port}}                      
         </td>
-          <td *ngIf="auth.isAdmin && item.price.length == 0; else updatePrice ">$0 &nbsp;&nbsp;
-              <a  href="javascript:void(0)" (click)="updateQuotePrice(i, null, updateModal)"> 
-                  <span class="glyphicon glyphicon-pencil"></span> Update
-              </a>
-          </td>
+        <td> 
+          <div *ngIf="auth.isAdmin; else imUser">
+              <div *ngIf="item.price_request; else updatePrice">
+                  <a  href="javascript:void(0)" (click)="updateQuotePrice(i, null, updateModal)"> 
+                      <span class="glyphicon glyphicon-pencil"></span> Quote New Price
+                  </a>
+              </div>
+          </div>
+          <ng-template #imUser>
+              <div *ngIf="item.price_request; else updatePrice">
+                  <span class="label label-primary">Pending</span>
+              </div>
+          </ng-template>
+        </td>
           <ng-template #updatePrice>
             <td> 
                 <tr *ngFor="let priceList of item.price; index as p; let last = last " >
                   <td> <span [ngClass]="{'strike': !last}">${{priceList.price}}</span>
                   &nbsp;&nbsp; 
                   <a *ngIf="last" href="javascript:void(0)" (click)="updateQuotePrice(i, p, updateModal)"> 
-                      <span class="glyphicon glyphicon-pencil"></span> Update
+                      <span class="glyphicon glyphicon-pencil"></span> View Quote Price 
                   </a>
                   </td>
                 </tr>
             </td>
           </ng-template>
           <td>{{item.units}}</td>
-          <td>{{item.required_validity_date}} - {{item.required_validity_time}}</td>
           <td>
-            <countdown-timer *ngIf="item.validity_status; else validityExpired" [end]="item | timer" (zeroTrigger)="onTimerEnd(i, item._id)"></countdown-timer>
+            {{item.required_validity_date}} - {{item.required_validity_time}}</td>
+          <td>
+            <countdown-timer *ngIf="item.validity_status && item.status === 'pending'; else validityExpired" [end]="item | timer" (zeroTrigger)="onTimerEnd(i, item._id)"></countdown-timer>
             <ng-template #validityExpired>
-              <span class="danger">Validity Expired</span>
+              <span class="label label-danger"  *ngIf="!item.validity_status">Validity Expired</span>
+              <span class="label label-warning" *ngIf="item.status === 'rejected'">Rejected</span>
+              <span class="label label-success" *ngIf="item.status === 'accepted'">Accepted</span>
             </ng-template>
           </td>
           <td>

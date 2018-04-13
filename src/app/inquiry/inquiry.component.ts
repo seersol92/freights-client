@@ -27,6 +27,7 @@ export class InquiryComponent implements OnInit {
   public quoteId: number;
   public detailId: number;
   inquiryQuoteList = [];
+  targetInquiryQuote = [];
   viewList = [];
   quoteDetailsKey: String = '';
   loadList = [];
@@ -66,18 +67,21 @@ export class InquiryComponent implements OnInit {
   }
 
    async ngOnInit() {
+    this.quote = new Quote();
    await this.auth.getProfile().subscribe(profile => {
         if (profile.user) {
-         this.auth.loggedinName = profile.user.username ;
+         this.auth.loggedinName = profile.user.username;
          this.auth.isAdmin = profile.user.is_admin;
+         this.quote.user_id = profile.user._id;
         }
        });
      this.fetchList();
      this.getQuote();
      this.load = new Load();
-     this.quote = new Quote();
      this.discharge = new Discharge();
      this.quotePrice = new Price();
+     this.quotePrice.is_admin = this.auth.isAdmin;
+     this.quotePrice.quoted_by = this.auth.loggedinName;
      this.shipping = new ShippingDetails();
    }
 
@@ -177,14 +181,9 @@ export class InquiryComponent implements OnInit {
 
   updateQuotePrice (index: number, priceIndex: number, template) {
     this.quoteId = this.inquiryQuoteList[index]['_id'];
+    this.targetInquiryQuote = this.inquiryQuoteList[index];
     if (this.quoteId && priceIndex !== null) {
        this.quotePrice = this.inquiryQuoteList[index]['price'][priceIndex];
-       if (this.quotePrice.status === 'rejected') {
-          this.quotePrice = new Price();
-          this.quotePrice.status = 'rejected';
-       } else if (this.quotePrice.status === '' || !this.quotePrice.status) {
-          this.quotePrice.status = 'pending';
-       }
     } else {
       this.quotePrice = new Price();
     }
@@ -223,8 +222,13 @@ export class InquiryComponent implements OnInit {
   }
 
   onUpdatePrice () {
-    this.quotePrice.quoted_by = this.auth.loggedinName;
-    this.quotePrice.status    = 'pending';
+   this.quotePrice.quoted_by = this.auth.loggedinName;
+   this.quotePrice.status    = 'pending';
+   this.quotePrice.time = this.makeTime(this.quotePrice.time);
+   this.quote.required_validity_date = this.quotePrice.date;
+   this.quote.required_validity_time = this.quotePrice.time;
+  // console.log(this.quotePrice);
+   // return false;
     const data = {
       'quote_id':      this.quoteId,
       'updated_price':  this.quotePrice
@@ -327,16 +331,16 @@ export class InquiryComponent implements OnInit {
     if (this.disChargeList.length === 0) {
       this.disChargeList.push(this.discharge);
     }
-    this.makeTime();
+    this.quote.required_validity_time = this.makeTime(this.quote.required_validity_time);
     this.modalRef = this.modalService.show(template);
   }
 
-  makeTime () {
-    const time = this.quote.required_validity_time;
+  makeTime (time) {
+    // const time = this.quote.required_validity_time;
     const hour = (time['hour'] <= 9 ? '0' + time['hour'] : time['hour'] );
     const minute = (time['minute'] <= 9 ? '0' + time['minute'] : time['minute'] );
     const sec = '00';
-    this.quote.required_validity_time = hour + ':' + minute + ':' + sec;
+    return hour + ':' + minute + ':' + sec;
   }
 
   inquirySummery(quoteIndex: number, template) {
@@ -368,10 +372,10 @@ export class InquiryComponent implements OnInit {
       'discharge':  this.disChargeList,
       'shipping':   this.shipping,
       'quote':      this.quote,
+      'quote_price': this.quotePrice,
       'added_by':   this.auth.loggedinName
     };
-    console.log(data);
-    // return false;
+
     this.formProcessing = true;
     this.auth.postRequest('/inquiry-quote/create', data ).subscribe(res => {
     this.modalRef.hide();

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           this.loginError = true;
           this.messageClass = 'alert alert-danger';
           this.message = data.message;
-      }else {
+      } else {
           this.messageClass = 'alert alert-success';
           this.message = 'Logged In Redirecting...';
           this.auth.storeUserData(data.token, data.user);
