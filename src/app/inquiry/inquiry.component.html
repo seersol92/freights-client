@@ -1332,9 +1332,9 @@
                         <div class="col-md-8">
                           <select class="form-control" name="units" [(ngModel)]="quote.units">
                             <option value="" hidden selected> Select Units</option>
-                            <option value=" Per Barrel">Per Barrel</option>
-                            <option value=" Per Cubic Meter">Per Cubic Meter</option>
-                            <option value=" Per Gallon">Per Gallon</option>                                  
+                            <option  *ngFor="let option of volumeList" [value]="option">
+                              {{option}}
+                          </option>                           
                           </select>
                         </div>
                         <div class="clearfix"></div>
