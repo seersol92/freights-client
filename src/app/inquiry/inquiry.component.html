@@ -1461,6 +1461,9 @@
             </ng-template>
           </td>
           <td>
+              <a *ngIf="!item.validity_status" href="javascript:void(0)" (click)="reOpenQuote(i, template)" >
+                <span class="glyphicon glyphicon-repeat"></span>
+              </a>  &nbsp;
               <a href="javascript:void(0)" (click)="removeQuote(i, item._id)" class="danger">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>                            

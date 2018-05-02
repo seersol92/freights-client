@@ -360,6 +360,24 @@ export class InquiryComponent implements OnInit {
     this.shipping = target_quote;
     this.modalRef = this.modalService.show(template);
   }
+
+  reOpenQuote (quoteIndex: number, template) {
+   // this.onlyInquirySummery = true;
+    const target_quote = this.inquiryQuoteList[quoteIndex];
+    if (target_quote['load'].length > 0) {
+         this.load = target_quote['load'][0];
+    } else {
+         this.load = new Load();
+    }
+    if (target_quote['discharge'].length > 0) {
+        this.discharge = target_quote['discharge'][0];
+    } else {
+        this.load = new Load();
+    }
+    this.quote = target_quote;
+    this.shipping = target_quote;
+    this.modalRef = this.modalService.show(template);
+  }
   onSubmitQuote() {
     if (this.loadList.length === 0) {
       this.loadList.push(this.load);
