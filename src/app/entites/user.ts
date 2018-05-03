@@ -5,6 +5,7 @@ export class User {
     email: string;
     is_admin: boolean;
     password: string;
+    user_id: string;
     constructor() {
         this.firstname = '';
         this.lastname = '';
@@ -12,5 +13,6 @@ export class User {
         this.email = '';
         this.is_admin = false;
         this.password = '';
+        this.user_id = '';
     }
 }

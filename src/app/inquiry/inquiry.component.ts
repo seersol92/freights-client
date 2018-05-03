@@ -73,16 +73,16 @@ export class InquiryComponent implements OnInit {
          this.auth.loggedinName = profile.user.username;
          this.auth.isAdmin = profile.user.is_admin;
          this.quote.user_id = profile.user._id;
+         this.fetchList();
+        this.getQuote();
+        this.load = new Load();
+        this.discharge = new Discharge();
+        this.quotePrice = new Price();
+        this.quotePrice.is_admin = this.auth.isAdmin;
+        this.quotePrice.quoted_by = this.auth.loggedinName;
+        this.shipping = new ShippingDetails();
         }
        });
-     this.fetchList();
-     this.getQuote();
-     this.load = new Load();
-     this.discharge = new Discharge();
-     this.quotePrice = new Price();
-     this.quotePrice.is_admin = this.auth.isAdmin;
-     this.quotePrice.quoted_by = this.auth.loggedinName;
-     this.shipping = new ShippingDetails();
    }
 
   sort(key) {
@@ -252,7 +252,11 @@ export class InquiryComponent implements OnInit {
     });
   }
   async getQuote() {
-    await this.auth.getRequest('/inquiry-quote', null ).subscribe(res => {
+    let url = '/inquiry-quote';
+    if (!this.auth.isAdmin) {
+      url += '/' + this.auth.loggedinName;
+    }
+    await this.auth.getRequest(url, null ).subscribe(res => {
     if (!res.success) {
       this.formProcessing = false;
       this.messageClass = 'alert alert-danger';
@@ -391,9 +395,9 @@ export class InquiryComponent implements OnInit {
       'shipping':   this.shipping,
       'quote':      this.quote,
       'quote_price': this.quotePrice,
-      'added_by':   this.auth.loggedinName
+      'added_by':   this.auth.loggedinName,
+      'added_user': this.quote.user_id
     };
-
     this.formProcessing = true;
     this.auth.postRequest('/inquiry-quote/create', data ).subscribe(res => {
     this.modalRef.hide();
