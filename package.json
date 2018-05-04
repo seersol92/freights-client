@@ -31,6 +31,7 @@
     "ng2-search-filter": "^0.4.7",
     "ngx-bootstrap": "^2.0.3",
     "ngx-countdown-timer": "^0.1.9",
+    "ngx-mask": "^2.6.3",
     "ngx-order-pipe": "^2.0.1",
     "rxjs": "^5.5.8",
     "zone.js": "^0.8.25"

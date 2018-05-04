@@ -409,6 +409,11 @@
                     </div>
                 </div>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 pull-right col-md-12 col-xs-12">
+               <textarea name="quote_comments" class="form-control" id="" rows="5" placeholder="write comments here" [(ngModel)]='quote.quote_comments'></textarea>
+            </div>
           </div>              
         </form>        
     </div>
@@ -954,13 +959,16 @@
               placeholder="Select Cargo Grade">
           </div>
           <div class="form-group">
-              <input type="text" class="form-control" placeholder="API" [(ngModel)]="load.api" name="api">
+              <input type="text" class="form-control" placeholder="API" [(ngModel)]="load.api" name="api"
+              mask="00.00"
+              >
             </div>
           <div class="row">
               <div class="col-md-6">
                   <div class="form-group">
                       <input type="text" class="form-control" name="volume" placeholder="Contract Volume" 
-                      [(ngModel)]="load.volume" name="volume">
+                      [(ngModel)]="load.volume" name="volume"  
+                      mask="000,000" >
                   </div>
               </div>
               <div class="col-md-5 col-md-offset-1">
@@ -1094,12 +1102,13 @@
                   placeholder="Select Cargo Grade">
               </div>
               <div class="form-group">
-                  <input type="text" class="form-control" placeholder="API" name="api" [(ngModel)]="discharge.api">
+                  <input type="text" class="form-control" placeholder="API" name="api" [(ngModel)]="discharge.api"
+                  mask="00.00">
               </div>
               <div class="row">
                   <div class="form-group">
                       <div class="col-md-6">
-                          <input type="text" class="form-control" placeholder="Contract Volume" name="volume" [(ngModel)]="discharge.volume" >
+                          <input type="text" class="form-control" placeholder="Contract Volume" name="volume" [(ngModel)]="discharge.volume"  mask="000,000">
                       </div>
                       <div class="col-md-5 col-md-offset-1">
                           <select class="form-control pull-right "   >
@@ -1203,7 +1212,7 @@
         <div class="row">
           <div class="col-lg-6 col-xs-12">
               <div class="custom-fieldset">
-                  <div class="panel panel-primary">
+                  <div class="panel panel-primary" style="height: 340px;">
                       <div class="panel-body">
                         <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Shipping Details</strong></h3>
                         <div class="form-group">

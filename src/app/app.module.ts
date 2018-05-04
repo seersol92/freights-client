@@ -25,6 +25,8 @@ import { UserComponent } from './user/user.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { TimerPipe } from './_pipe/timer.pipe';
 import { InquiryNoPipe } from './_pipe/inquiry-no.pipe';
+import {NgxMaskModule} from 'ngx-mask';
+import { Options } from 'selenium-webdriver/ie';
 
 
 const APP_ROUTES: Routes = [
@@ -91,7 +93,9 @@ const APP_ROUTES: Routes = [
     RouterModule.forRoot(APP_ROUTES),
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
-    CountdownTimerModule.forRoot()
+    CountdownTimerModule.forRoot(),
+    NgxMaskModule.forRoot()
+
 
   ],
   providers: [AuthService, AuthGuard, NotAuthGuard, LoggedInService],

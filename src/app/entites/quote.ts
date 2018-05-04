@@ -6,6 +6,7 @@ export class Quote {
     required_validity_date: string;
     required_validity_time: string;
     price_request: boolean;
+    quote_comments: string;
     user_id: any;
     constructor() {
         this.named_vessel = '';
@@ -16,5 +17,6 @@ export class Quote {
         this.required_validity_time = '';
         this.price_request = true;
         this.user_id = '';
+        this.quote_comments = '';
     }
 }

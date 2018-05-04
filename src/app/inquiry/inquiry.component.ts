@@ -13,11 +13,13 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-inquiry',
   templateUrl: './inquiry.component.html',
   styleUrls: ['./inquiry.component.css']
 })
+
 export class InquiryComponent implements OnInit {
   public load: Load;
   public quotePrice: Price;
@@ -200,7 +202,8 @@ export class InquiryComponent implements OnInit {
     const data = {
       'quote_id':  this.quoteId,
       'price_id':  this.quotePrice['_id'],
-      'status'  : status
+      'status'  : status,
+      'user_info' : { 'user_no': this.auth.loggedInId, 'type': this.auth.isAdmin  } // user_no is user id og logged in and is admin flag
     };
     this.formProcessing = true;
     this.auth.postRequest('/inquiry-quote/price-status', data ).subscribe(res => {
@@ -231,7 +234,8 @@ export class InquiryComponent implements OnInit {
    // return false;
     const data = {
       'quote_id':      this.quoteId,
-      'updated_price':  this.quotePrice
+      'updated_price':  this.quotePrice,
+      'user_flag': this.auth.isAdmin
     };
     this.formProcessing = true;
     this.auth.postRequest('/inquiry-quote/update-price', data ).subscribe(res => {
